@@ -3,12 +3,30 @@
 #include <vector>
 #include <iostream>
 
+int arrived = 0;
+Semaphore mutexSem(0);
+Semaphore barrierSem(1);
+
 /*! displays the first function in the barrier being executed */
 void task(std::shared_ptr<Semaphore> mutexSem,std::shared_ptr<Semaphore> barrierSem, int threadCount){
 
-  std::cout << "first " << std::endl;
-  //put barrier code here
-  std::cout << "second" << std::endl;
+    mutexSem->Wait();  // Open the critical section
+    std::cout << "first" << std::endl; //Thread in the CS performs a function
+    ++arrived;//increase variable that thread arrived 
+
+    if (arrived == threadCount) {
+        // If all threads have arrived, signal the barrier semaphore to proceed
+        barrierSem->Signal();// Signal that the thread has arrived at the rendezvous point
+    }
+    else{
+      mutexSem->Signal();  // Release the mutual exclusion lock
+    }
+
+    barrierSem->Wait();  // Wait for the barrier semaphore to proceed
+
+
+    std::cout << "second" << std::endl;
+    barrierSem->Signal();
 }
 
 
