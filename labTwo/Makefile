@@ -1,16 +1,14 @@
-#Joseph Kehoe 13/9/2017
-#First simple Makefile
-#Used to contain commands to compile projects
-#Equivalent(?) to a project file in VStudio -- only better!
-#See http://www.cs.colby.edu/maxwell/courses/tutorials/maketutor/ for info.
-
+#Liam Durkan 7/10/2023
+#Secomnd make file version 
 
 CC=g++
 CFLAGS= -std=c++11 -pthread
+MUTTFILES = rendezvous.cpp Semaphore.cpp Semaphore.h
 
-SIMPLE: rendezvous.cpp 
-	g++ -std=c++11 -pthread helloThreads.cpp
+SIMPLE: $(MUTTFILES)
+	$(CC) $(CFLAGS) Semaphore.cpp rendezvous.cpp -o my_program
 
 
 CLEAN:
+
 	rm *.o

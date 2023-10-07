@@ -10,12 +10,12 @@ void taskOne(std::shared_ptr<Semaphore> theSemaphore, int delay){
   std::cout << "must ";
   std::cout << "print ";
   std::cout << "first"<<std::endl;
-  //tell taskTwo to start now
+  theSemaphore->Signal();//tell taskTwo to start now
 }
 
 /*! displays a message second*/
 void taskTwo(std::shared_ptr<Semaphore> theSemaphore){
-  //wait here until taskOne finishes...
+  theSemaphore->Wait();//wait here until taskOne finishes...
   std::cout <<"This ";
   std::cout << "will ";
   sleep(5);
@@ -26,7 +26,7 @@ void taskTwo(std::shared_ptr<Semaphore> theSemaphore){
 
 int main(void){
   std::thread threadOne, threadTwo;
-  std::shared_ptr<Semaphore> sem( new Semaphore);
+  std::shared_ptr<Semaphore> sem( new Semaphore(0));
   sem->Signal();sem->Wait();//these serve no purpose
   /**< Launch the threads  */
   int taskOneDelay=5;
