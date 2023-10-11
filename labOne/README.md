@@ -36,7 +36,9 @@ Prerequisites: [How to install](#to-install-this-project)
 1. Open a new terminal and navigate to the repositorys directory.
 2. To complie and create an executable for helloThreads & mutualEx type make in the terminal. 
 3. To compile and create an executable for helloThreads type make helloThreads in the terminal
-4. To compile and create an executable for mutualEx type make mutualEx in the terminal
-5. To clean up .o files created by the project, type make CLEAN in the terminal. 
+4. To compile and create an executable for mutualEx type make mutualEx in the terminal.
+5. To compile and create a release version type make RELEASE in the terminal.
+6. To compile and create a debug version type make DEBUG in the terminal.
+7. To clean up .o files created by the project, type make CLEAN in the terminal. 
 
 ## Testing
