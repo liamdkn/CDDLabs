@@ -1,11 +1,12 @@
-Welcome to the README file for lab 1 of Concurrent Programming. 
+# Welcome to the README file for lab 1 of Concurrent Programming. 
 
-# Table of Contents
+## Table of Contents
 1. [Information](#project-licence-gpl3)
 2. [To Do](#to-do)
 3. [Included Files](#files-included-in-this-project)
 4. [How to install](#to-install-this-project)
 5. [How to execute](#how-to-complie-and-run-the-project)
+6. [Testing](#testing)
 
 ## Information
 
@@ -37,3 +38,5 @@ Prerequisites: [How to install](#to-install-this-project)
 3. To compile and create an executable for helloThreads type make helloThreads in the terminal
 4. To compile and create an executable for mutualEx type make mutualEx in the terminal
 5. To clean up .o files created by the project, type make CLEAN in the terminal. 
+
+## Testing
