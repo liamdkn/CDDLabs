@@ -1,3 +1,5 @@
+#ifndef SEMAPHORE_H
+#define SEMAPHORE_H
 #include <mutex>
 #include <condition_variable>
 
@@ -21,3 +23,8 @@ public:
     void Signal();
 
 };
+
+
+// Your Semaphore class code here
+
+#endif // SEMAPHORE_H

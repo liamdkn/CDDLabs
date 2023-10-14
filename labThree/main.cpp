@@ -1,13 +1,19 @@
 #include "Barrier.h"
+#include "Semaphore.h"
 #include <thread>
 #include <vector>
+
+
+Semaphore barrierSem();
+
 
 /*! displays the first function in the barrier being executed */
 void task(std::shared_ptr<Barrier> barrierObj){
 
-  std::cout << "first " << std::endl;
+  std::cout << "first\n";
   barrierObj->waitForAll();
-  std::cout << "second" << std::endl;
+  std::cout << "second\n";
+  barrierObj->waitForAll();
 }
 
 
