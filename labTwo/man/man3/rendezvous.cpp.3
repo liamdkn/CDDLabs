@@ -1,0 +1,55 @@
+.TH "/Users/liamdurkan/Desktop/College SETU/Repositories /ConcurrentDevelopment-/labTwo/rendezvous.cpp" 3 "Version 1" "Lab 2" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+/Users/liamdurkan/Desktop/College SETU/Repositories /ConcurrentDevelopment-/labTwo/rendezvous.cpp
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'Semaphore\&.h'\fP
+.br
+\fC#include <thread>\fP
+.br
+\fC#include <vector>\fP
+.br
+\fC#include <iostream>\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBtask\fP (std::shared_ptr< \fBSemaphore\fP > mutexSem, std::shared_ptr< \fBSemaphore\fP > barrierSem, int threadCount)"
+.br
+.ti -1c
+.RI "int \fBmain\fP (void)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "int \fBarrivedThreads\fP = 0"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "int main (void)"
+< An array of threads
+.PP
+< Pointer to barrier object
+.PP
+Definition at line \fB34\fP of file \fBrendezvous\&.cpp\fP\&.
+.SS "void task (std::shared_ptr< \fBSemaphore\fP > mutexSem, std::shared_ptr< \fBSemaphore\fP > barrierSem, int threadCount)"
+displays the first function in the barrier being executed 
+.PP
+Definition at line \fB9\fP of file \fBrendezvous\&.cpp\fP\&.
+.SH "Variable Documentation"
+.PP 
+.SS "int arrivedThreads = 0"
+
+.PP
+Definition at line \fB6\fP of file \fBrendezvous\&.cpp\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Lab 2 from the source code\&.

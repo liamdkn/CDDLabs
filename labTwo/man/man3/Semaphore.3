@@ -1,0 +1,58 @@
+.TH "Semaphore" 3 "Version 1" "Lab 2" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Semaphore \- A \fBSemaphore\fP Implementation\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Semaphore\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSemaphore\fP (unsigned int uiCount=0)"
+.br
+.ti -1c
+.RI "void \fBWait\fP ()"
+.br
+.ti -1c
+.RI "template<typename R , typename P > bool \fBWait\fP (const std::chrono::duration< R, P > &crRelTime)"
+.br
+.ti -1c
+.RI "void \fBSignal\fP ()"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+A \fBSemaphore\fP Implementation\&. 
+
+Uses C++11 features such as mutex and condition variables to implement \fBSemaphore\fP 
+.PP
+Definition at line \fB14\fP of file \fBSemaphore\&.h\fP\&.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Semaphore::Semaphore (unsigned int uiCount = \fC0\fP)\fC [inline]\fP"
+
+.PP
+Definition at line \fB22\fP of file \fBSemaphore\&.h\fP\&.
+.SH "Member Function Documentation"
+.PP 
+.SS "void Semaphore::Signal ()"
+
+.PP
+Definition at line \fB30\fP of file \fBSemaphore\&.cpp\fP\&.
+.SS "void Semaphore::Wait ()"
+
+.PP
+Definition at line \fB12\fP of file \fBSemaphore\&.cpp\fP\&.
+.SS "template<typename R , typename P > bool Semaphore::Wait (const std::chrono::duration< R, P > & crRelTime)"
+
+.PP
+Definition at line \fB20\fP of file \fBSemaphore\&.cpp\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Lab 2 from the source code\&.

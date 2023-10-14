@@ -1,0 +1,56 @@
+\doxysection{/\+Users/liamdurkan/\+Desktop/\+College SETU/\+Repositories /\+Concurrent\+Development-\//lab\+Two/rendezvous.cpp File Reference}
+\label{rendezvous_8cpp}\index{/Users/liamdurkan/Desktop/College SETU/Repositories /ConcurrentDevelopment-\//labTwo/rendezvous.cpp@{/Users/liamdurkan/Desktop/College SETU/Repositories /ConcurrentDevelopment-\//labTwo/rendezvous.cpp}}
+{\ttfamily \#include "{}Semaphore.\+h"{}}\newline
+{\ttfamily \#include $<$thread$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \textbf{ task} (std\+::shared\+\_\+ptr$<$ \textbf{ Semaphore} $>$ mutex\+Sem, std\+::shared\+\_\+ptr$<$ \textbf{ Semaphore} $>$ barrier\+Sem, int thread\+Count)
+\item 
+int \textbf{ main} (void)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \textbf{ arrived\+Threads} = 0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\label{rendezvous_8cpp_a840291bc02cba5474a4cb46a9b9566fe} 
+\index{rendezvous.cpp@{rendezvous.cpp}!main@{main}}
+\index{main@{main}!rendezvous.cpp@{rendezvous.cpp}}
+\doxysubsubsection{main()}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+$<$ An array of threads
+
+$<$ Pointer to barrier object
+
+Definition at line \textbf{ 34} of file \textbf{ rendezvous.\+cpp}.
+
+\label{rendezvous_8cpp_a10b0f19dcb248825f8bf4f0168c570d2} 
+\index{rendezvous.cpp@{rendezvous.cpp}!task@{task}}
+\index{task@{task}!rendezvous.cpp@{rendezvous.cpp}}
+\doxysubsubsection{task()}
+{\footnotesize\ttfamily void task (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \textbf{ Semaphore} $>$}]{mutex\+Sem,  }\item[{std\+::shared\+\_\+ptr$<$ \textbf{ Semaphore} $>$}]{barrier\+Sem,  }\item[{int}]{thread\+Count }\end{DoxyParamCaption})}
+
+displays the first function in the barrier being executed 
+
+Definition at line \textbf{ 9} of file \textbf{ rendezvous.\+cpp}.
+
+
+
+\doxysubsection{Variable Documentation}
+\label{rendezvous_8cpp_a57cad0baa4bebff917677483a7ea0212} 
+\index{rendezvous.cpp@{rendezvous.cpp}!arrivedThreads@{arrivedThreads}}
+\index{arrivedThreads@{arrivedThreads}!rendezvous.cpp@{rendezvous.cpp}}
+\doxysubsubsection{arrivedThreads}
+{\footnotesize\ttfamily int arrived\+Threads = 0}
+
+
+
+Definition at line \textbf{ 6} of file \textbf{ rendezvous.\+cpp}.
+
