@@ -12,8 +12,8 @@ MUTTFILES = rendezvous.cpp Semaphore.cpp Semaphore.h #list of files for the prog
 %.o: %.cpp
 	$(CC) -c -o $@ $< $(CFLAGS) $(DEBUGFLAGS)
 
-SIMPLE: rendezvous.o Semaphore.o
-	$(CC) $(CFLAGS) -o rendezvous Semaphore.cpp rendezvous.cpp $(DEBUGFLAGS)
+SIMPLE: rendezvous.o Semaphore.o 
+	$(CC) $(CFLAGS) -o rendezvous Semaphore.cpp rendezvous.cpp $(DEBUGFLAGS) 
 
 #Debug rule containing debug flags 
 DEBUG: DEBUGFLAGS = -DDEBUG
