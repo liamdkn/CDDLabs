@@ -1,0 +1,38 @@
+\chapter{README}
+\hypertarget{md__r_e_a_d_m_e}{}\label{md__r_e_a_d_m_e}\index{README@{README}}
+Welcome to the README file for lab 1 of Concurrent Programming.\hypertarget{md__r_e_a_d_m_e_autotoc_md0}{}\doxysection{\texorpdfstring{Table of Contents}{Table of Contents}}\label{md__r_e_a_d_m_e_autotoc_md0}
+
+\begin{DoxyEnumerate}
+\item Information
+\item To Do
+\item Included Files
+\item How to install
+\item How to execute
+\end{DoxyEnumerate}\hypertarget{md__r_e_a_d_m_e_autotoc_md1}{}\doxysubsection{\texorpdfstring{Information}{Information}}\label{md__r_e_a_d_m_e_autotoc_md1}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md2}{}\doxyparagraph{\texorpdfstring{Project Licence\+:}{Project Licence:}}\label{md__r_e_a_d_m_e_autotoc_md2}
+GPL3\hypertarget{md__r_e_a_d_m_e_autotoc_md3}{}\doxyparagraph{\texorpdfstring{Project Author\+:}{Project Author:}}\label{md__r_e_a_d_m_e_autotoc_md3}
+Original Author\+: Joseph Keohe~\newline
+ Makefile and modifications\+: Liam Durkan\hypertarget{md__r_e_a_d_m_e_autotoc_md4}{}\doxysubsection{\texorpdfstring{To install this project}{To install this project}}\label{md__r_e_a_d_m_e_autotoc_md4}
+
+\begin{DoxyEnumerate}
+\item Check that gcc is installed on the machine. I am using using version 11.\+0.\+3
+\item Create a clone of the repositiory
+\item Open a terminal and navigate to the project directory.
+\end{DoxyEnumerate}\hypertarget{md__r_e_a_d_m_e_autotoc_md5}{}\doxysubsection{\texorpdfstring{Files included in this project\+:}{Files included in this project:}}\label{md__r_e_a_d_m_e_autotoc_md5}
+
+\begin{DoxyItemize}
+\item Makefile -\/ Complies \doxylink{hello_threads_8cpp}{hello\+Threads.\+cpp}, \doxylink{mutual_ex_8cpp}{mutual\+Ex.\+cpp} \& \doxylink{_semaphore_8cpp}{Semaphore.\+cpp} and creates an executable
+\item \doxylink{hello_threads_8cpp}{hello\+Threads.\+cpp} -\/ C++ file to demonstrate using semaphores.
+\item \doxylink{mutual_ex_8cpp}{mutual\+Ex.\+cpp} -\/ C++11 file using mutex and condition variables to implement an example of a rendezvous for threads
+\item \doxylink{_semaphore_8cpp}{Semaphore.\+cpp} -\/ Uses C++11 features such as mutex and condition variables to implement \doxylink{class_semaphore}{Semaphore}
+\item \doxylink{_semaphore_8h}{Semaphore.\+h} -\/ Header file using C++11 features such as mutex and condition variables to implement \doxylink{class_semaphore}{Semaphore}
+\item README -\/ This file. Contaning information for Lab1, how to install, compile \& execute
+\end{DoxyItemize}\hypertarget{md__r_e_a_d_m_e_autotoc_md6}{}\doxysubsection{\texorpdfstring{How to complie and run the project}{How to complie and run the project}}\label{md__r_e_a_d_m_e_autotoc_md6}
+Prerequisites\+: How to install
+\begin{DoxyEnumerate}
+\item Open a new terminal and navigate to the repositorys directory.
+\item To complie and create an executable for hello\+Threads \& mutual\+Ex type make in the terminal.
+\item To compile and create an executable for hello\+Threads type make hello\+Threads in the terminal
+\item To compile and create an executable for mutual\+Ex type make mutual\+Ex in the terminal
+\item To clean up .o files created by the project, type make CLEAN in the terminal. 
+\end{DoxyEnumerate}

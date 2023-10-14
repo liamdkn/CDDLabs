@@ -1,1 +1,10 @@
-labThree/Semaphore.cpp
+.DS_Store
+labTwo/html
+labTwo/latex
+labTwo/man
+labTwo/rtf
+main.o
+Semaphore.o
+Barrier.o
+barrier
+*.o
