@@ -6,9 +6,6 @@
 
 */
 
-
-
-
 void Semaphore::Wait()
 {
       std::unique_lock< std::mutex > lock(m_mutex);

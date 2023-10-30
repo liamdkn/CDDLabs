@@ -1,3 +1,5 @@
+/*Liam Durkan - C00264405*/
+
 #include "Semaphore.h"
 #include <iostream>
 #include <thread>

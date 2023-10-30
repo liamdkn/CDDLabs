@@ -1,3 +1,9 @@
+/*
+#Author: Liam Durkan 
+#Licence: GPL3 
+#Github: https://github.com/liamdkn/ConcurrentDevelopment-/blob/main/labTwo/
+*/
+
 #include "Barrier.h"
 
 /*! \class Barrier
@@ -9,7 +15,7 @@
 /*! Barrier constructor*/
 Barrier::Barrier(){
 
-  this->count = 0;
+  this->count = 5;
   threadNum = 0;
   condition = false;
 
@@ -51,15 +57,28 @@ int Barrier::getCount(){
 void Barrier::waitForAll(){
 
   mutex->Wait(); //enter the critical section
-  threadNum++; //increase threads that have arrived 
+  threadNum++; //increase threads arrived 
 
   if(threadNum == count){ //if last thread arrives 
-    entryBarrier->Signal(); //tell entry barrier to close 
-    threadNum = 0; //reset thread numbers 
-    exitBarrier->Signal();
+    exitBarrier->Wait();//close exit gate
+    entryBarrier->Signal();//allow all threads into airlock 
   }
   mutex->Signal(); //release mutex lock
 
-  entryBarrier->Wait(); //wait for all threads to arrive at entry barrier
-  entryBarrier->Signal(); //
+  entryBarrier->Wait();
+  entryBarrier->Signal();
+
+  mutex->Wait();
+  --threadNum;
+
+  if(threadNum == 0){
+    entryBarrier->Wait();
+    exitBarrier->Signal();
+  }
+
+  mutex->Signal();
+
+  exitBarrier->Wait(); //wait for all threads to arrive at entry barrier
+  exitBarrier->Signal(); //e
+
 }

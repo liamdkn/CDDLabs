@@ -1,3 +1,9 @@
+/*
+#Author: Liam Durkan 
+#Licence: GPL3 
+#Github: https://github.com/liamdkn/ConcurrentDevelopment-/blob/main/labTwo/
+*/
+
 #include "Barrier.h"
 #include "Semaphore.h"
 #include <thread>
@@ -10,14 +16,13 @@ Semaphore barrierSem();
 /*! displays the first function in the barrier being executed */
 void task(std::shared_ptr<Barrier> barrierObj){
 
-  std::cout << "first\n";
-  barrierObj->waitForAll();
-  std::cout << "second\n";
-  barrierObj->waitForAll();
+  for(int i = 0; i < 5; ++i){
+    std::cout << "first\n";
+    barrierObj->waitForAll();
+    std::cout << "second\n";
+    barrierObj->waitForAll();
+  }
 }
-
-
-
 
 int main(void){
 
