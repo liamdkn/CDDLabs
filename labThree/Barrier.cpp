@@ -58,7 +58,6 @@ void Barrier::waitForAll(){
 
   mutex->Wait(); //enter the critical section
   threadNum++; //increase threads arrived 
-
   if(threadNum == count){ //if last thread arrives 
     exitBarrier->Wait();//close exit gate
     entryBarrier->Signal();//allow all threads into airlock 
@@ -67,7 +66,7 @@ void Barrier::waitForAll(){
 
   entryBarrier->Wait();
   entryBarrier->Signal();
-
+  
   mutex->Wait();
   --threadNum;
 
@@ -75,10 +74,9 @@ void Barrier::waitForAll(){
     entryBarrier->Wait();
     exitBarrier->Signal();
   }
-
   mutex->Signal();
 
   exitBarrier->Wait(); //wait for all threads to arrive at entry barrier
-  exitBarrier->Signal(); //e
+  exitBarrier->Signal();
 
 }
