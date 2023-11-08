@@ -3,6 +3,10 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
+struct Location{
+    int xAxis;
+    int yAxis;
+};
 
 using namespace std;
 
@@ -14,24 +18,70 @@ int Starve = 5;
 int GridSize = 100;
 int Threads;
 
-void gui(){  
-    int xdim = 100;
-    int ydim= 100;
+const int xdim = 100;
+const int ydim= 100;
+
+//Array representing whats in a cell
+int cellState[xdim][ydim];
+
+Location randomLocation(){
+    Location randomLoc;
+    randomLoc.xAxis = rand() % xdim;
+    randomLoc.yAxis = rand() % ydim;
+    return randomLoc;
+}
+
+
+void populate() {
+    for(int i = 0; i < NumFish; i++){
+        Location fishLocation = randomLocation();
+
+        if(fishLocation.xAxis == 0 && fishLocation.yAxis == 0){
+            cellState[fishLocation.xAxis][fishLocation.yAxis] = 2;
+        }
+        else{
+            cellState[1][2] = 2;
+        }
+    }
+}
+
+int main()
+{
+    
     int WindowXSize=800;
     int WindowYSize=600;
     int cellXSize=WindowXSize/xdim;
     int cellYSize=WindowYSize/ydim;
+
+    for (int i = 0; i < xdim; i++) {
+        for (int j = 0; j < ydim; j++) {
+            cellState[i][j] = 0; // Set each element to 0
+        }
+    }
+
+    populate();
+
+    
+
     //each shape will represent either a fish, shark or empty space
     //e.g. blue for empty, red for shark and green for fish
     sf::RectangleShape recArray[xdim][ydim];
     for(int i=0;i<xdim;++i){
-    for(int k=0;k<ydim;++k){//give each one a size, position and color
-        recArray[i][k].setSize(sf::Vector2f(80.f,60.f));
-        recArray[i][k].setPosition(i*cellXSize,k*cellYSize);//position is top left corner!
-        int id=i*1-+k;
-        if (id%2==0) recArray[i][k].setFillColor(sf::Color::Green);
-        else recArray[i][k].setFillColor(sf::Color::Blue);
-    }
+
+        for(int k=0;k<ydim;++k){//give each one a size, position and color
+            recArray[i][k].setSize(sf::Vector2f(80.f,60.f));
+            recArray[i][k].setPosition(i*cellXSize,k*cellYSize);//position is top left corner!
+
+            if(cellState[i][k] == 1){
+                recArray[i][k].setFillColor(sf::Color::Green);
+            }
+            else if(cellState[i][k] == 2){
+                recArray[i][k].setFillColor(sf::Color::Red);
+            }
+            else{
+                recArray[i][k].setFillColor(sf::Color::Blue);
+            }  
+        }
     }
     sf::RenderWindow window(sf::VideoMode(WindowXSize,WindowYSize), "SFML Wa-Tor world");
 
@@ -55,10 +105,5 @@ void gui(){
         window.display();
     }
 
-    //return 0;
-}
-
-int main()
-{
-  gui();
+    return 0;
 }
