@@ -10,7 +10,7 @@ struct Location{
 
 using namespace std;
 
-int NumShark = 5;
+int NumShark = 1;
 int NumFish = 5;
 int FishBreed = 5;
 int SharkBreed = 5;
@@ -18,8 +18,8 @@ int Starve = 5;
 int GridSize = 100;
 int Threads;
 
-const int xdim = 100;
-const int ydim= 100;
+const int xdim = 10;
+const int ydim= 10;
 
 //Array representing whats in a cell
 int cellState[xdim][ydim];
@@ -32,18 +32,18 @@ Location randomLocation(){
 }
 
 
-void populate() {
-    for(int i = 0; i < NumFish; i++){
-        Location fishLocation = randomLocation();
+void populateFish() {
+    for (int i = 0; i < NumFish; i++) {
+        Location fishLocation;
 
-        if(fishLocation.xAxis == 0 && fishLocation.yAxis == 0){
-            cellState[fishLocation.xAxis][fishLocation.yAxis] = 2;
-        }
-        else{
-            cellState[1][2] = 2;
-        }
+        do {
+            fishLocation = randomLocation();
+        } while (cellState[fishLocation.xAxis][fishLocation.yAxis] != 0);
+
+        cellState[fishLocation.xAxis][fishLocation.yAxis] = 2;
     }
 }
+
 
 int main()
 {
@@ -59,7 +59,7 @@ int main()
         }
     }
 
-    populate();
+    populateFish();
 
     
 
