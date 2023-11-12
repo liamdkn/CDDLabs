@@ -55,17 +55,15 @@ void think(int myID){
 }
 
 void get_forks(int philID){
-  forkLock->Wait();
-  forks[philID].Wait(); //
+  forks[philID].Wait(); 
   forks[(philID+1)%COUNT].Wait();
-  std::cout << philID << " holding fork "<<std::endl;
+  std::cout << philID << " gets fork "<<std::endl;
   
 }
 
 void put_forks(int philID){
   forks[philID].Signal();
   forks[(philID+1)%COUNT].Signal(); 
-  forkLock->Signal();
   std::cout << philID << " releasing fork "<<std::endl;
 }
 
@@ -75,12 +73,15 @@ void eat(int myID){
   sleep(seconds);  
 }
 
-void philosopher(int id/* other params here*/){
+void philosopher(int id, std::shared_ptr<Semaphore> forkLock){
   while(true){
+    forkLock->Wait();
     think(id);//every thread arrives
     get_forks(id); //get & lock two forks
     eat(id); 
     put_forks(id); //release locked forks
+    forkLock->Signal();
+
   }//while  
 }//philosopher
 
@@ -98,9 +99,8 @@ int main(void){
 
   int id=0;
   for(std::thread& t: vt){
-    t=std::thread(philosopher,id++/*,params*/);
+    t=std::thread(philosopher,id++,forkLock);
   }
-
 
 
   /**< Join the philosopher threads with the main thread */
