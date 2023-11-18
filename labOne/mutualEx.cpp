@@ -1,3 +1,12 @@
+/*
+Author: Liam Durkan
+Student Number: C00264405
+Date: 25/09/2023
+Licence: GPL3
+Description: Using mutex and condition variables to implement an example of a rendezvous for threads
+
+*/
+
 #include "Semaphore.h"
 #include <iostream>
 #include <thread>
