@@ -1,15 +1,22 @@
+/**
+ * @file Semaphore.cpp
+ * @author Liam Durkan (C00264405)
+ * @brief A Semaphore Implementation
+ * @date 25/09/2023
+ * @copyright GPL-3.0
+ */
+
 #include "Semaphore.h"
-/*! \class Semaphore
-    \brief A Semaphore Implementation
 
-   Uses C++11 features such as mutex and condition variables to implement Semaphore
-
+/*! 
+ * \class Semaphore
+ * \brief A Semaphore Implementation
+ * Uses C++11 features such as mutex and condition variables to implement Semaphore
 */
 
-
-
-/*! Waits till the semaphore becomes avaliable
-    Set semaphore count to 0 so that it locks 
+/*! 
+ * Waits till the semaphore becomes avaliable
+ * Set semaphore count to 0 so that it locks 
 */
 void Semaphore::Wait()
 {

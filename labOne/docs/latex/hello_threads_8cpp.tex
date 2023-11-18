@@ -1,0 +1,89 @@
+\doxysection{/\+Users/liamdurkan/\+Desktop/\+College SETU/\+Repositories /\+Concurrent\+Development-\//lab\+One/hello\+Threads.cpp File Reference}
+\hypertarget{hello_threads_8cpp}{}\label{hello_threads_8cpp}\index{/Users/liamdurkan/Desktop/College SETU/Repositories /ConcurrentDevelopment-\//labOne/helloThreads.cpp@{/Users/liamdurkan/Desktop/College SETU/Repositories /ConcurrentDevelopment-\//labOne/helloThreads.cpp}}
+
+
+Using mutex and condition variables to implement a \doxylink{class_semaphore}{Semaphore}.  
+
+
+{\ttfamily \#include "{}Semaphore.\+h"{}}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$thread$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{hello_threads_8cpp_a2b4729d561c345111ccab970fe11e229}{task\+One}} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_semaphore}{Semaphore}} $>$ the\+Semaphore, int delay)
+\begin{DoxyCompactList}\small\item\em Print the first message. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{hello_threads_8cpp_a943128248f32d8a0a9588a9fc96b9a49}{task\+Two}} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_semaphore}{Semaphore}} $>$ the\+Semaphore, int delay)
+\begin{DoxyCompactList}\small\item\em Print the second message. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{hello_threads_8cpp_a840291bc02cba5474a4cb46a9b9566fe}{main}} (void)
+\begin{DoxyCompactList}\small\item\em Main function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Using mutex and condition variables to implement a \doxylink{class_semaphore}{Semaphore}. 
+
+\begin{DoxyAuthor}{Author}
+Liam Durkan (C00264405) 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+25/09/2023 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+GPL-\/3.\+0 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{hello_threads_8cpp_a840291bc02cba5474a4cb46a9b9566fe}\label{hello_threads_8cpp_a840291bc02cba5474a4cb46a9b9566fe} 
+\index{helloThreads.cpp@{helloThreads.cpp}!main@{main}}
+\index{main@{main}!helloThreads.cpp@{helloThreads.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Main function. 
+
+Launches two threads, One for each task, synchronising so the first thread completes task 1 before the second thread beings task 2. \begin{DoxyReturn}{Returns}
+0 on successful execution. 
+\end{DoxyReturn}
+\texorpdfstring{$<$}{<} Launch the threads ~\newline
+
+
+\texorpdfstring{$<$}{<} Wait for the threads to finish
+
+Check that both threads are rejoined with the main\Hypertarget{hello_threads_8cpp_a2b4729d561c345111ccab970fe11e229}\label{hello_threads_8cpp_a2b4729d561c345111ccab970fe11e229} 
+\index{helloThreads.cpp@{helloThreads.cpp}!taskOne@{taskOne}}
+\index{taskOne@{taskOne}!helloThreads.cpp@{helloThreads.cpp}}
+\doxysubsubsection{\texorpdfstring{taskOne()}{taskOne()}}
+{\footnotesize\ttfamily void task\+One (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_semaphore}{Semaphore}} $>$}]{the\+Semaphore,  }\item[{int}]{delay }\end{DoxyParamCaption})}
+
+
+
+Print the first message. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em the\+Semaphore} & A shared pointer to the \doxylink{class_semaphore}{Semaphore} object. \\
+\hline
+{\em delay} & The delay before printing the message. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{hello_threads_8cpp_a943128248f32d8a0a9588a9fc96b9a49}\label{hello_threads_8cpp_a943128248f32d8a0a9588a9fc96b9a49} 
+\index{helloThreads.cpp@{helloThreads.cpp}!taskTwo@{taskTwo}}
+\index{taskTwo@{taskTwo}!helloThreads.cpp@{helloThreads.cpp}}
+\doxysubsubsection{\texorpdfstring{taskTwo()}{taskTwo()}}
+{\footnotesize\ttfamily void task\+Two (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_semaphore}{Semaphore}} $>$}]{the\+Semaphore,  }\item[{int}]{delay }\end{DoxyParamCaption})}
+
+
+
+Print the second message. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em the\+Semaphore} & A shared pointer to the \doxylink{class_semaphore}{Semaphore} object. \\
+\hline
+{\em delay} & The delay before printing the message. \\
+\hline
+\end{DoxyParams}

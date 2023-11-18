@@ -1,11 +1,10 @@
-/*
-Author: Liam Durkan
-Student Number: C00264405
-Date: 25/09/2023
-Licence: GPL3
-Description: Using mutex and condition variables to implement an example of a rendezvous for threads
-
-*/
+/**
+ * @file mutualEx.cpp
+ * @author Liam Durkan (C00264405)
+ * @brief Using mutex and condition variables to implement an example of a rendezvous for threads.
+ * @date 25/09/2023
+ * @copyright GPL-3.0
+ */
 
 #include "Semaphore.h"
 #include <iostream>
@@ -24,7 +23,6 @@ std::mutex mtx;
    Uses C++11 features such as mutex and condition variables to implement an example of a rendezvous for threads
 
 */
-
 /*! displays a message that is split in to 2 sections to show how a rendezvous works*/
 void updateTask(std::shared_ptr<Semaphore> firstSem, int numUpdates){
   firstSem -> Wait(); //lock semaphore preventing more than 1 thread passing
@@ -34,7 +32,13 @@ void updateTask(std::shared_ptr<Semaphore> firstSem, int numUpdates){
   }
 }
 
-
+/*!
+ * \brief Main function.
+ *
+ * Launches 100 threads, each thread increases a shared variable guarded with a semaphore. 
+ *
+ * \return 0 on successful execution.
+ */
 int main(void){
   std::vector<std::thread> vt(num_threads);
   std::shared_ptr<Semaphore> aSemaphore( new Semaphore);

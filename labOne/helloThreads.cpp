@@ -1,17 +1,22 @@
-/*
-Author: Liam Durkan
-Student Number: C00264405
-Date: 25/09/2023
-Licence: GPL3
-Description: 
-*/
+/**
+ * @file helloThreads.cpp
+ * @author Liam Durkan (C00264405)
+ * @brief Using mutex and condition variables to implement a Semaphore.
+ * @date 25/09/2023
+ * @copyright GPL-3.0
+ */
 
 #include "Semaphore.h"
 #include <iostream>
 #include <thread>
 #include <unistd.h>
 
-/*! displays a message first*/
+/*!
+ * \brief Print the first message.
+ *
+ * \param theSemaphore A shared pointer to the Semaphore object.
+ * \param delay The delay before printing the message.
+ */
 void taskOne(std::shared_ptr<Semaphore> theSemaphore, int delay){
   sleep(delay);
   std::cout <<"I ";
@@ -21,25 +26,36 @@ void taskOne(std::shared_ptr<Semaphore> theSemaphore, int delay){
   theSemaphore->Signal();//tell taskTwo to start now
 }
 
-/*! displays a message second*/
-void taskTwo(std::shared_ptr<Semaphore> theSemaphore){
+/*!
+ * \brief Print the second message.
+ *
+ * \param theSemaphore A shared pointer to the Semaphore object.
+ * \param delay The delay before printing the message.
+ */
+void taskTwo(std::shared_ptr<Semaphore> theSemaphore, int delay){
   theSemaphore->Wait();//wait here until taskOne finishes...
   std::cout <<"This ";
   std::cout << "will ";
-  sleep(5);
+  sleep(delay);
   std::cout << "appear ";
   std::cout << "second"<<std::endl;
 }
 
-
+/*!
+ * \brief Main function.
+ *
+ * Launches two threads, One for each task, 
+ *synchronising  so the first thread completes task 1 before the second thread beings task 2.
+ * \return 0 on successful execution.
+ */
 int main(void){
   std::thread threadOne, threadTwo;
   std::shared_ptr<Semaphore> sem( new Semaphore(0));
   sem->Signal();sem->Wait();//these serve no purpose
   /**< Launch the threads  */
-  int taskOneDelay=5;
-  threadOne=std::thread(taskTwo,sem);
-  threadTwo=std::thread(taskOne,sem,taskOneDelay);
+  int taskDelay=5;
+  threadOne=std::thread(taskTwo,sem, taskDelay);
+  threadTwo=std::thread(taskOne,sem,taskDelay);
   std::cout << "Launched from the main\n";
    /**< Wait for the threads to finish */
   threadOne.join();

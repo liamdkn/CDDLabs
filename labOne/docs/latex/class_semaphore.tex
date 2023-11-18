@@ -1,0 +1,56 @@
+\doxysection{Semaphore Class Reference}
+\hypertarget{class_semaphore}{}\label{class_semaphore}\index{Semaphore@{Semaphore}}
+
+
+A \doxylink{class_semaphore}{Semaphore} Implementation Uses C++11 features such as mutex and condition variables to implement \doxylink{class_semaphore}{Semaphore}.  
+
+
+
+
+{\ttfamily \#include $<$Semaphore.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_semaphore_a438cfaa515bad18449d1aeddadbfa61c}{Semaphore}} (unsigned int ui\+Count=0)?
+\item 
+void \mbox{\hyperlink{class_semaphore_a72aabebf026e3a8b1f3e4d0fa8ee1eda}{Wait}} ()
+\item 
+\Hypertarget{class_semaphore_a7f700173ae86ae623684109066e07656}\label{class_semaphore_a7f700173ae86ae623684109066e07656} 
+{\footnotesize template$<$typename R , typename P $>$ }\\bool {\bfseries Wait} (const std\+::chrono\+::duration$<$ R, P $>$ \&cr\+Rel\+Time)
+\item 
+void \mbox{\hyperlink{class_semaphore_a86f92f738b4486439b296d8e235895f2}{Signal}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A \doxylink{class_semaphore}{Semaphore} Implementation Uses C++11 features such as mutex and condition variables to implement \doxylink{class_semaphore}{Semaphore}. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_semaphore_a438cfaa515bad18449d1aeddadbfa61c}\label{class_semaphore_a438cfaa515bad18449d1aeddadbfa61c} 
+\index{Semaphore@{Semaphore}!Semaphore@{Semaphore}}
+\index{Semaphore@{Semaphore}!Semaphore@{Semaphore}}
+\doxysubsubsection{\texorpdfstring{Semaphore()}{Semaphore()}}
+{\footnotesize\ttfamily Semaphore\+::\+Semaphore (\begin{DoxyParamCaption}\item[{unsigned int}]{ui\+Count = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Initalise semaphone on 0 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_semaphore_a86f92f738b4486439b296d8e235895f2}\label{class_semaphore_a86f92f738b4486439b296d8e235895f2} 
+\index{Semaphore@{Semaphore}!Signal@{Signal}}
+\index{Signal@{Signal}!Semaphore@{Semaphore}}
+\doxysubsubsection{\texorpdfstring{Signal()}{Signal()}}
+{\footnotesize\ttfamily void Semaphore\+::\+Signal (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Increase the semaphore by 1 to unlock it \Hypertarget{class_semaphore_a72aabebf026e3a8b1f3e4d0fa8ee1eda}\label{class_semaphore_a72aabebf026e3a8b1f3e4d0fa8ee1eda} 
+\index{Semaphore@{Semaphore}!Wait@{Wait}}
+\index{Wait@{Wait}!Semaphore@{Semaphore}}
+\doxysubsubsection{\texorpdfstring{Wait()}{Wait()}}
+{\footnotesize\ttfamily void Semaphore\+::\+Wait (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Waits till the semaphore becomes avaliable Set semaphore count to 0 so that it locks 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/liamdurkan/\+Desktop/\+College SETU/\+Repositories /\+Concurrent\+Development-\//lab\+One/\mbox{\hyperlink{_semaphore_8h}{Semaphore.\+h}}\item 
+/\+Users/liamdurkan/\+Desktop/\+College SETU/\+Repositories /\+Concurrent\+Development-\//lab\+One/\mbox{\hyperlink{_semaphore_8cpp}{Semaphore.\+cpp}}\end{DoxyCompactItemize}

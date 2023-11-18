@@ -1,0 +1,57 @@
+\chapter{Lab 1 -\/ The Basics}
+\hypertarget{index}{}\label{index}\index{Lab 1 -\/ The Basics@{Lab 1 -\/ The Basics}}
+\label{index_md__2_users_2liamdurkan_2_desktop_2_college_01_s_e_t_u_2_repositories_01_2_concurrent_development-_2lab_one_2_r_e_a_d_m_e}%
+\Hypertarget{index_md__2_users_2liamdurkan_2_desktop_2_college_01_s_e_t_u_2_repositories_01_2_concurrent_development-_2lab_one_2_r_e_a_d_m_e}%
+
+\begin{DoxyItemize}
+\item This lab introduces the topics of mutex and condition variables to implement a \doxylink{class_semaphore}{Semaphore} \& rendezvous for threads.
+\end{DoxyItemize}\hypertarget{index_autotoc_md1}{}\doxysection{\texorpdfstring{Information}{Information}}\label{index_autotoc_md1}
+\hypertarget{index_autotoc_md2}{}\doxysubsubsection{\texorpdfstring{Project Licence\+:}{Project Licence:}}\label{index_autotoc_md2}
+
+\begin{DoxyItemize}
+\item GPL-\/3.\+0
+\end{DoxyItemize}\hypertarget{index_autotoc_md3}{}\doxysubsubsection{\texorpdfstring{Project Author\+:}{Project Author:}}\label{index_autotoc_md3}
+
+\begin{DoxyItemize}
+\item Original Author\+: Joseph Keohe~\newline
+
+\item Makefile and modifications\+: Liam Durkan
+\item \href{https://github.com/liamdkn/CDDLabs}{\texttt{ My Git\+Hib}}
+\end{DoxyItemize}\hypertarget{index_autotoc_md4}{}\doxysection{\texorpdfstring{To install this project}{To install this project}}\label{index_autotoc_md4}
+
+\begin{DoxyEnumerate}
+\item Check that gcc is installed on the machine. I am using using version 11.\+0.\+3
+\item Create a clone of the repositiory
+\item Open a terminal and navigate to the project directory.
+\end{DoxyEnumerate}\hypertarget{index_autotoc_md5}{}\doxysection{\texorpdfstring{Files included in this project\+:}{Files included in this project:}}\label{index_autotoc_md5}
+
+\begin{DoxyItemize}
+\item Makefile -\/ Complies \doxylink{hello_threads_8cpp}{hello\+Threads.\+cpp}, \doxylink{mutual_ex_8cpp}{mutual\+Ex.\+cpp} \& \doxylink{_semaphore_8cpp}{Semaphore.\+cpp} and creates an executable
+\item \doxylink{hello_threads_8cpp}{hello\+Threads.\+cpp} -\/ C++ file to demonstrate using semaphores.
+\item \doxylink{mutual_ex_8cpp}{mutual\+Ex.\+cpp} -\/ C++11 file using mutex and condition variables to implement an example of a rendezvous for threads
+\item \doxylink{_semaphore_8cpp}{Semaphore.\+cpp} -\/ Uses C++11 features such as mutex and condition variables to implement \doxylink{class_semaphore}{Semaphore}
+\item \doxylink{_semaphore_8h}{Semaphore.\+h} -\/ Header file using C++11 features such as mutex and condition variables to implement \doxylink{class_semaphore}{Semaphore}
+\item README -\/ This file. Contaning information for Lab1, how to install, compile \& execute
+\end{DoxyItemize}\hypertarget{index_autotoc_md6}{}\doxysection{\texorpdfstring{How to complie and run the project}{How to complie and run the project}}\label{index_autotoc_md6}
+
+\begin{DoxyEnumerate}
+\item Open a new terminal and navigate to the repositorys directory.
+\item To complie and create an executable for hello\+Threads \& mutual\+Ex type make in the terminal.
+\item To compile and create an executable for hello\+Threads type make hello\+Threads in the terminal
+\item To compile and create an executable for mutual\+Ex type make mutual\+Ex in the terminal.
+\item To compile and create a release version type make RELEASE in the terminal.
+\item To compile and create a debug version type make DEBUG in the terminal.
+\item To clean up .o files created by the project, type make CLEAN in the terminal.
+\end{DoxyEnumerate}\hypertarget{index_autotoc_md7}{}\doxysection{\texorpdfstring{Testing}{Testing}}\label{index_autotoc_md7}
+\hypertarget{index_autotoc_md8}{}\doxysubsubsection{\texorpdfstring{hello\+Threads}{helloThreads}}\label{index_autotoc_md8}
+
+\begin{DoxyItemize}
+\item Outputs\+: \textquotesingle{}I must print first\textquotesingle{} followed by \textquotesingle{}This will appear second\textquotesingle{}
+\item If both threads rejoin the main, they are no longer \textquotesingle{}joinable\textquotesingle{} then the terminal will output ~\newline
+ \textquotesingle{}Both threads have finished and rejoined with the main thread!\textquotesingle{}~\newline
+
+\end{DoxyItemize}\hypertarget{index_autotoc_md9}{}\doxysubsubsection{\texorpdfstring{mutaul\+Ex}{mutaulEx}}\label{index_autotoc_md9}
+
+\begin{DoxyItemize}
+\item Outputs\+: 100000 
+\end{DoxyItemize}
