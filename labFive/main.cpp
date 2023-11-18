@@ -1,37 +1,10 @@
-/* main.c --- 
- * 
- * Filename: main.c
- * Description: 
- * Author: Joseph
- * Maintainer: 
- * Created: Wed Oct 11 09:28:12 2023 (+0100)
- * Last-Updated: Wed Oct 11 10:01:39 2023 (+0100)
- *           By: Joseph
- *     Update #: 13
- * 
+/**
+ * @file main.cpp
+ * @author Liam Durkan (C00264405)
+ * @brief This main function implements a solution to the Dining Philosophers problem.
+ * @date 11/11/2023
+ * @copyright GPL-3.0
  */
-
-/* Commentary: 
- * 
- * 
- * 
- */
-
-/* This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or (at
- * your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with GNU Emacs.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-/* Code: */
 
 #include "Semaphore.h"
 #include <iostream>
@@ -47,13 +20,24 @@ const int EATTIME=5;
 std::vector<Semaphore> forks(COUNT);
 std::shared_ptr<Semaphore> forkLock;
 
-
+/*!
+ * \fn think
+ * \brief Each philosopher is waiting to get a fork
+ *
+ * \param myID Semaphore ID for forks 
+ */
 void think(int myID){
   int seconds=rand() % THINKTIME + 1;
   std::cout << myID << " is thinking! "<<std::endl;
   sleep(seconds);
 }
 
+/*!
+ * \fn get_fork
+ * \brief One philosopher locks two forks 
+ *
+ * \param myID Philosopher ID (thread count)
+ */
 void get_forks(int philID){
   forks[philID].Wait(); 
   forks[(philID+1)%COUNT].Wait();
@@ -61,12 +45,24 @@ void get_forks(int philID){
   
 }
 
+/*!
+ * \fn put_fork
+ * \brief Philosopher unlocks both forks 
+ *
+ * \param myID Philosopher ID (thread count)
+ */
 void put_forks(int philID){
   forks[philID].Signal();
   forks[(philID+1)%COUNT].Signal(); 
   std::cout << philID << " releasing fork "<<std::endl;
 }
 
+/*!
+ * \fn eat
+ * \brief Philosopher has 2 forks locked, therefore can eat. 
+ *
+ * \param myID Semaphore ID for forks 
+ */
 void eat(int myID){
   int seconds=rand() % EATTIME + 1;
   std::cout << myID << " is chomping! "<<std::endl;

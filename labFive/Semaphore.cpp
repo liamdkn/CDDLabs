@@ -1,3 +1,11 @@
+/**
+ * @file Semaphore.cpp
+ * @author Liam Durkan (C00264405)
+ * @brief A Semaphore Implementation
+ * @date 11/11/2023
+ * @copyright GPL-3.0
+ */
+
 #include "Semaphore.h"
 /*! \class Semaphore
     \brief A Semaphore Implementation
