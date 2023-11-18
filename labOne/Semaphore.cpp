@@ -8,7 +8,9 @@
 
 
 
-
+/*! Waits till the semaphore becomes avaliable
+    Set semaphore count to 0 so that it locks 
+*/
 void Semaphore::Wait()
 {
       std::unique_lock< std::mutex > lock(m_mutex);
@@ -27,6 +29,7 @@ bool Semaphore::Wait(const std::chrono::duration<R,P>& crRelTime)
       return true;
 }
 
+/*! Increase the semaphore by 1 to unlock it */
 void Semaphore::Signal()
 {
       std::unique_lock< std::mutex > lock(m_mutex);

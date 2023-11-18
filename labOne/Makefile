@@ -1,8 +1,10 @@
-#Author: Liam Durkan 25/09/2023 
-#Licence: GPL3 
-#Github: https://github.com/liamdkn/ConcurrentDevelopment-/blob/main/labOne/Makefile
+#Author: Liam Durkan \
+Student Number: C00264405 \
+Date: 25/09/2023 \
+Licence: GPL-3.0 \
+Description: Makefile used to contain commands to compile helloThreads & mutualEx \
+GitHub: https://github.com/liamdkn/CDDLabs
 
-#Makefile used to contain commands to compile helloThreads & mutualEx
 
 #Setting variables
 CC = g++ 

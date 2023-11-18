@@ -1,4 +1,10 @@
-/*Liam Durkan - C00264405*/
+/*
+Author: Liam Durkan
+Student Number: C00264405
+Date: 25/09/2023
+Licence: GPL3
+Description: 
+*/
 
 #include "Semaphore.h"
 #include <iostream>
@@ -38,5 +44,11 @@ int main(void){
    /**< Wait for the threads to finish */
   threadOne.join();
   threadTwo.join();
+  
+  /*! Check that both threads are rejoined with the main */
+  if(threadOne.joinable() == false && threadTwo.joinable() == false){
+    std::cout << "Both threads have finished and rejoined with the main thread!\n";
+  }
+  
   return 0;
 }

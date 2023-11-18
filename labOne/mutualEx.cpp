@@ -15,16 +15,14 @@ std::mutex mtx;
    Uses C++11 features such as mutex and condition variables to implement an example of a rendezvous for threads
 
 */
+
 /*! displays a message that is split in to 2 sections to show how a rendezvous works*/
 void updateTask(std::shared_ptr<Semaphore> firstSem, int numUpdates){
-
- 
+  firstSem -> Wait(); //lock semaphore preventing more than 1 thread passing
   for(int i=0;i<numUpdates;i++){
-    //UPDATE SHARED VARIABLE HERE!
      std::lock_guard<std::mutex> lock(mtx);
       sharedVariable++;
   }
-
 }
 
 
@@ -35,6 +33,7 @@ int main(void){
   int i=0;
   for(std::thread& t: vt){
     t=std::thread(updateTask,aSemaphore,1000);
+    aSemaphore->Signal();//unlock the semaphore after teh shared variable is updated
   }
   std::cout << "Launched from the main\n";
   /**< Join the threads with the main thread */
