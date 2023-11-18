@@ -1,8 +1,9 @@
-/*
-#Author: Liam Durkan 
-#Licence: GPL3 
-#Github: https://github.com/liamdkn/ConcurrentDevelopment-/blob/main/labTwo/
-*/
+/**
+ * @file barrier.cpp
+ * @author Liam Durkan (C00264405)
+ * @date 07/10/2023
+ * @copyright GPL-3.0
+ */
 
 #include "Barrier.h"
 

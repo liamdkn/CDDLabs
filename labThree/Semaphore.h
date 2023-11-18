@@ -1,3 +1,10 @@
+/**
+ * @file Semaphore.h
+ * @author Liam Durkan (C00264405)
+ * @date 07/10/2023
+ * @copyright GPL-3.0
+ */
+
 #ifndef SEMAPHORE_H
 #define SEMAPHORE_H
 #include <mutex>

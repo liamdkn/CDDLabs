@@ -1,6 +1,6 @@
 #Author: Liam Durkan 
 #Licence: GPL3 
-#Github: https://github.com/liamdkn/ConcurrentDevelopment-/blob/main/labThree/Makefile
+#Github: https://github.com/liamdkn/ConcurrentDevelopment-/blob/main/labThree
 
 
 #Setting variables

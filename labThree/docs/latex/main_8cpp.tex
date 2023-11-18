@@ -1,0 +1,55 @@
+\doxysection{/\+Users/liamdurkan/\+Desktop/\+College SETU/\+Repositories /\+Concurrent\+Development-\//lab\+Three/main.cpp File Reference}
+\hypertarget{main_8cpp}{}\label{main_8cpp}\index{/Users/liamdurkan/Desktop/College SETU/Repositories /ConcurrentDevelopment-\//labThree/main.cpp@{/Users/liamdurkan/Desktop/College SETU/Repositories /ConcurrentDevelopment-\//labThree/main.cpp}}
+
+
+An Implementation of a barrier Using Semaphores.  
+
+
+{\ttfamily \#include "{}Barrier.\+h"{}}\newline
+{\ttfamily \#include "{}Semaphore.\+h"{}}\newline
+{\ttfamily \#include $<$thread$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{main_8cpp_ad86dfea661abd7376dd524792487ba01}\label{main_8cpp_ad86dfea661abd7376dd524792487ba01} 
+\mbox{\hyperlink{class_semaphore}{Semaphore}} {\bfseries barrier\+Sem} ()
+\item 
+\Hypertarget{main_8cpp_a96ca7eba915789dab4c11886f423c42b}\label{main_8cpp_a96ca7eba915789dab4c11886f423c42b} 
+void {\bfseries task} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_barrier}{Barrier}} $>$ barrier\+Obj)
+\item 
+int \mbox{\hyperlink{main_8cpp_a840291bc02cba5474a4cb46a9b9566fe}{main}} (void)
+\begin{DoxyCompactList}\small\item\em Main function. Creates 5 threads to execute task, then rejoins the threads. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+An Implementation of a barrier Using Semaphores. 
+
+\begin{DoxyAuthor}{Author}
+Liam Durkan (C00264405) 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+07/10/2023 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+GPL-\/3.\+0 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{main_8cpp_a840291bc02cba5474a4cb46a9b9566fe}\label{main_8cpp_a840291bc02cba5474a4cb46a9b9566fe} 
+\index{main.cpp@{main.cpp}!main@{main}}
+\index{main@{main}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Main function. Creates 5 threads to execute task, then rejoins the threads. 
+
+\begin{DoxyReturn}{Returns}
+0 on successful execution. 
+\end{DoxyReturn}
+\texorpdfstring{$<$}{<} An array of threads
+
+\texorpdfstring{$<$}{<} Pointer to barrier object
