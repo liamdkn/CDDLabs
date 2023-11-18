@@ -14,11 +14,7 @@
  * Uses C++11 features such as mutex and condition variables to implement Semaphore
 */
 
-/*! 
- * Waits till the semaphore becomes avaliable
- * Set semaphore count to 0 so that it locks 
-*/
-void Semaphore::Wait()
+void Semaphore::Wait() /*! Waits till the semaphore becomes avaliable, Set semaphore count to 0 so that it locks */
 {
       std::unique_lock< std::mutex > lock(m_mutex);
       m_condition.wait(lock,[&]()->bool{ return m_uiCount>0; });

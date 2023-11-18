@@ -1,6 +1,6 @@
 ## Lab 1 - The Basics 
 
-- This lab introduces the topics of mutex and condition variables to implement a Semaphore &   rendezvous for threads. 
+- This lab introduces the topics of mutex and condition variables to implement a Semaphore & rendezvous for threads. 
 
 ## Information
 
