@@ -8,14 +8,44 @@ struct Location{
     int yAxis;
 };
 
+class Ocean {
+    public:
+
+    class Water{
+        int indentifier = 0;
+    };
+    class Shark{
+        public:
+        int indentifier = 1;
+        int SharkBreed = 5;
+        int Starve = 5;
+
+        int above;
+        int below;
+        int left;
+        int right; 
+    };
+    class Fish {
+        public:
+        int indentifier = 2;
+        int FishBreed = 5;
+
+        int above;
+        int below;
+        int left;
+        int right; 
+    };
+    
+};
+
 using namespace std;
 
 // Variables
-int NumShark = 1;
-int NumFish = 1;
-int FishBreed = 5;
-int SharkBreed = 5;
-int Starve = 5;
+int NumShark = 4;
+int NumFish = 13;
+//int FishBreed = 5;
+//int SharkBreed = 5;
+//int Starve = 5;
 int GridSize = 100;
 int Threads;
 
@@ -25,7 +55,6 @@ const int ydim= 10;
 //Array representing whats in a cell
 int cellState[xdim][ydim];
 
-//Array representing shark & fish neighbours
 
 Location randomLocation(){
     Location randomLoc;
@@ -37,20 +66,22 @@ Location randomLocation(){
 void populateShark() {
     for (int i = 0; i < NumShark; i++) {
         Location sharkLocation;
+        Ocean::Shark shark;
         do {
             sharkLocation = randomLocation();
         } while (cellState[sharkLocation.xAxis][sharkLocation.yAxis] != 0);
-        cellState[sharkLocation.xAxis][sharkLocation.yAxis] = 1;
+        cellState[sharkLocation.xAxis][sharkLocation.yAxis] = shark.indentifier;
     }
 }
 
 void populateFish() {
     for (int i = 0; i < NumFish; i++) {
         Location fishLocation;
+        Ocean::Fish fish;
         do {
             fishLocation = randomLocation();
         } while (cellState[fishLocation.xAxis][fishLocation.yAxis] != 0);
-        cellState[fishLocation.xAxis][fishLocation.yAxis] = 2;
+        cellState[fishLocation.xAxis][fishLocation.yAxis] = fish.indentifier;
     }
 }
 
