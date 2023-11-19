@@ -10,8 +10,9 @@ struct Location{
 
 using namespace std;
 
+// Variables
 int NumShark = 1;
-int NumFish = 5;
+int NumFish = 1;
 int FishBreed = 5;
 int SharkBreed = 5;
 int Starve = 5;
@@ -24,6 +25,8 @@ const int ydim= 10;
 //Array representing whats in a cell
 int cellState[xdim][ydim];
 
+//Array representing shark & fish neighbours
+
 Location randomLocation(){
     Location randomLoc;
     randomLoc.xAxis = rand() % xdim;
@@ -31,23 +34,42 @@ Location randomLocation(){
     return randomLoc;
 }
 
+void populateShark() {
+    for (int i = 0; i < NumShark; i++) {
+        Location sharkLocation;
+        do {
+            sharkLocation = randomLocation();
+        } while (cellState[sharkLocation.xAxis][sharkLocation.yAxis] != 0);
+        cellState[sharkLocation.xAxis][sharkLocation.yAxis] = 1;
+    }
+}
 
 void populateFish() {
     for (int i = 0; i < NumFish; i++) {
         Location fishLocation;
-
         do {
             fishLocation = randomLocation();
         } while (cellState[fishLocation.xAxis][fishLocation.yAxis] != 0);
-
         cellState[fishLocation.xAxis][fishLocation.yAxis] = 2;
     }
 }
 
+/*int[][] getNeighbours(int xAxis, int yAxis){
+
+        for (int i = xAxis - 1; i <= xAxis + 1; ++i) {
+        for (int j = yAxis - 1; j <= yAxis + 1; ++j) {
+            // Check if the indices are within the valid range
+            if (i >= 0 && i < cellstate.size() && j >= 0 && j < cellstate[0].size()) {
+                neighbours[i - (xAxis - 1)][j - (yAxis - 1)] = cellstate[i][j];
+            }
+        }
+    }
+
+    return neighbours;
+}*/
 
 int main()
 {
-    
     int WindowXSize=800;
     int WindowYSize=600;
     int cellXSize=WindowXSize/xdim;
@@ -55,13 +77,12 @@ int main()
 
     for (int i = 0; i < xdim; i++) {
         for (int j = 0; j < ydim; j++) {
-            cellState[i][j] = 0; // Set each element to 0
+            cellState[i][j] = 0; //  Initalise every element in the array to zero
         }
     }
 
     populateFish();
-
-    
+    populateShark();
 
     //each shape will represent either a fish, shark or empty space
     //e.g. blue for empty, red for shark and green for fish
@@ -85,8 +106,6 @@ int main()
     }
     sf::RenderWindow window(sf::VideoMode(WindowXSize,WindowYSize), "SFML Wa-Tor world");
 
-
-
     while (window.isOpen())
     {
         sf::Event event;
@@ -107,3 +126,15 @@ int main()
 
     return 0;
 }
+
+/*        //get the neighbours around the fish
+        for(int i = 0; i < xdim; i++){
+            for(int j = 0; j < ydim; j++){
+                if(cellState[i][j] == 1){
+                    moveShark(i,j);
+                }
+                if(cellState[i][j] == 2){
+                    moveFish(i,j);
+                }
+            }
+        }*/
