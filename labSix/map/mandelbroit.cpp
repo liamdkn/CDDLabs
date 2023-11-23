@@ -1,49 +1,10 @@
-// mandelbroit.cpp --- m
-// 
-// Filename: mandelbroit.cpp
-// Description: 
-// Author: Joseph
-// Maintainer: 
-// Created: Mon Feb  4 09:40:41 2019 (+0000)
-// Version: 
-// Package-Requires: ()
-// Last-Updated: Mon Feb  4 10:08:24 2019 (+0000)
-//           By: Joseph
-//     Update #: 18
-// URL: 
-// Doc URL: 
-// Keywords: 
-// Compatibility: 
-// 
-// 
-
-// Commentary: 
-// 
-// 
-// 
-// 
-
-// Change Log:
-// 
-// 
-// 
-// 
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at
-// your option) any later version.
-// 
-// This program is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-// General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with GNU Emacs.  If not, see <http://www.gnu.org/licenses/>.
-// 
-// 
-
-// Code:
+/**
+ * @file mandelbroit.cpp
+ * @brief Implementation of the Mandelbrot set calculation using OpenMP parallelization.
+ * @author Joseph Kehoe
+ * @date 04/02/2019
+ * @copyright GPL-3.0
+ */
 
 #include <iostream>
 #include <stdlib.h>     /* srand, rand */
@@ -57,6 +18,13 @@ const int ROW=1000;
 const int COL=1000;
 const int DEPTH=10;
 
+/**
+ * @brief Calculates the Mandelbrot set for a given complex number.
+ *
+ * @param c The complex number for which the Mandelbrot set is calculated.
+ * @param depth Maximum depth of iteration for Mandelbrot calculation.
+ * @return The number of iterations taken to escape the Mandelbrot set.
+ */
 int calc(complex<int> c, int depth){
     int count=0;
     complex<int> z=0;
@@ -70,7 +38,12 @@ int calc(complex<int> c, int depth){
     return count;
 }
 
-
+/**
+ * @brief Calculates the Mandelbrot set for each point in the grid and stores the results in a 2D array.
+ *
+ * @param p The 2D array to store the Mandelbrot set results.
+ * @param depth Maximum depth of iteration for Mandelbrot calculation.
+ */
 void mandel( int p[ROW][COL], int depth){
   #pragma omp parallel for collapse(2)	  
   for(int i=0;i<ROW;++i){
@@ -80,6 +53,11 @@ void mandel( int p[ROW][COL], int depth){
     }
 }
 
+/**
+ * @brief Main function that initializes the random seed, calculates the Mandelbrot set, and measures the execution time.
+ *
+ * @return 0 if the program executes successfully.
+ */
 int main(void){
 
   
@@ -93,7 +71,5 @@ int main(void){
   double timeSec = (end - begin) / static_cast<double>( CLOCKS_PER_SEC );
   std::cout << timeSec << std::endl;
 }
-
-
 // 
 // mandelbroit.cpp ends here

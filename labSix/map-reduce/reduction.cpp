@@ -1,49 +1,10 @@
-// reduction.cpp --- 
-// 
-// Filename: quicksort.cpp
-// Description: 
-// Author: Joseph Kehoe
-// Maintainer: 
-// Created: Sat Feb 19 13:23:33 2019 (+0000)
-// Version: 
-// Package-Requires: ()
-// Last-Updated: Sun Oct 22 20:51:32 2023 (+0100)
-//           By: Joseph
-//     Update #: 106
-// URL: 
-// Doc URL: 
-// Keywords: 
-// Compatibility: 
-// 
-// 
-
-// Commentary: 
-// 
-// 
-// 
-// 
-
-// Change Log:
-// 
-// 
-// 
-// 
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at
-// your option) any later version.
-// 
-// This program is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-// General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with GNU Emacs.  If not, see <http://www.gnu.org/licenses/>.
-//
-// 
-
-// Code:
+/**
+ * @file reduction.cpp
+ * @brief Demonstrates parallel reduction techniques using OpenMP
+ * @author Joseph Kehoe
+ * @date 22/10/2023
+ * @copyright GPL-3.0
+ */
 
 #include <iostream>
 #include <stdlib.h>     /* srand, rand */
@@ -59,8 +20,10 @@ using namespace std ;
 const int LENGTH=2000;
 int NumThreads=1;
 
-
-///! Find out how many threads are running!
+/**
+ * @brief Return how many threads are running
+ * @return The number of threads
+ */
 int get_num_threads(void) {
     int num_threads = 1;
     //must ask in parallel region otherwise 1 is returned
@@ -72,6 +35,11 @@ int get_num_threads(void) {
     return num_threads;
 }
 
+/**
+ * @brief Calculates the sum of a vector 
+ * @param data The vector of integers
+ * @return The sum of the vector elements
+ */
 float getSerialSum(vector<int> data){
   float sum=0.0;
   for(auto& value:data){
@@ -80,6 +48,11 @@ float getSerialSum(vector<int> data){
   return sum;
 }
 
+/**
+ * @brief Calculates the sum of a vector in parallel
+ * @param data The vector to be summed 
+ * @return The sum of the vector
+ */
 float getParallelSum(vector<int> data){
   float sum=0.0;
 #pragma omp parallel for reduction(+:sum)
@@ -89,7 +62,11 @@ float getParallelSum(vector<int> data){
   return sum;
 }
 
-
+/**
+ * @brief Calculates the sum of elements in a vector in a tiled parallel manner
+ * @param data The vector of integers
+ * @return The sum of the vector elements
+ */
 float getTiledParallelsum(vector<int> data){
   float result =0.0;
   NumThreads=get_num_threads();
@@ -109,8 +86,6 @@ float getTiledParallelsum(vector<int> data){
   std::cout <<std::endl;
   return result ;
 }
-
-
 
 int main(void){
   float sum=0.0;

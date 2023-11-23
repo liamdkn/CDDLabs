@@ -1,49 +1,10 @@
-// quicksort.cpp --- 
-// 
-// Filename: quicksort.cpp
-// Description: 
-// Author: Joseph Kehoe
-// Maintainer: 
-// Created: Sat Feb  9 16:43:33 2019 (+0000)
-// Version: 
-// Package-Requires: ()
-// Last-Updated: Tue Feb 12 16:48:22 2019 (+0000)
-//           By: Joseph
-//     Update #: 103
-// URL: 
-// Doc URL: 
-// Keywords: 
-// Compatibility: 
-// 
-// 
-
-// Commentary: 
-// 
-// 
-// 
-// 
-
-// Change Log:
-// 
-// 
-// 
-// 
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at
-// your option) any later version.
-// 
-// This program is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-// General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with GNU Emacs.  If not, see <http://www.gnu.org/licenses/>.
-//
-// 
-
-// Code:
+/**
+ * @file quicksort.cpp
+ * @brief Implementation of the quicksort algorithm using OpenMP.
+ * @author Joseph Kehoe
+ * @date 12/02/2019
+ * @copyright GPL-3.0
+ */
 
 #include <iostream>
 #include <stdlib.h>     /* srand, rand */
@@ -53,12 +14,21 @@
 #include <limits>
 #include <vector>      /* vectors used instead of arrays */
 
-using namespace std ;
+using namespace std;
 
 
 const int LENGTH=2000;
 
-//template <typename T>
+/**
+ * @brief Partition function for quicksort
+ *
+ * Partitions the array into in half with a piviot, left being lower than the pivot,
+ * and right being > greater 
+ * @param myArray The vector to be partitioned
+ * @param low The lower index of the partition
+ * @param high The high index of the partition
+ * @return The index of the pivot after partition
+ */
 int partition (vector<int>& myArray , int low , int high ){
   int pivot=myArray[high];
   int k=high;
@@ -76,8 +46,16 @@ int partition (vector<int>& myArray , int low , int high ){
   }
   return i-1;
 }
-  
+
 //template<typename T>
+/**
+ * @brief Quicksort algorithm to sort the vector in parallel
+ * 
+ * @param myArray The vector to be sorted
+ * @param low The lower index of the range to be sorted
+ * @param high The higher index of the range to be sorted
+ * @return Returns 1
+ */
 int quicksort(vector<int>& myArray , int low , int high ){
   if (low<high){
     int pivot=partition(myArray,low,high);
