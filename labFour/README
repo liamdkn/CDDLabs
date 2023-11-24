@@ -1,10 +1,38 @@
-The README file is a text file that explains what a project is.
-It should contain information on
+## Lab 5 - Reusable Barrier Class
 
-1. Project Licence
-2. Authors of Project
-3. How to install project
-4. List of any required Libraries, platform issues, etc.
-5. TO DO section listing items that need to be completed (errors, missing features etc.)
-6. List of files and what they contain
-7. Any other relevent information
+- This lab introduces producers and consumers. 
+
+## Information
+
+#### Project Licence: 
+ - GPL-3.0
+
+#### Project Author: 
+ - Original Author: Joseph Keohe<br>
+ - Makefile and modifications: Liam Durkan
+ - [My GitHib](https://github.com/liamdkn/CDDLabs)
+
+## To install this project
+1. Check that gcc is installed on the machine. I am using using version 11.0.3 
+2. Create a clone of the repositiory
+3. Open a terminal and navigate to the project directory. 
+
+
+## Files included in this project:
+- semaphore.h - The header file for the Semaphore class. This file is provided for your use.
+- Semaphore.cpp - The implementation file for the Semaphore class
+- safeBuffer.cpp - The implementation file for the SafeBuffer class.
+- safeBuffer.h - The header file for the SafeBuffer class.
+- main.cpp - The file containing the main function
+- makefile - This is the project file. It contains rules that tell the system how to compile the code and produce a working executable called prodCon.
+- README - This is a text file for the project. 
+
+## How to complie and run the project
+1. Open a new terminal and navigate to the repositorys directory.
+2. To complie and create an executable for prodCon type make in the terminal. 
+5. To compile and create a release version type make RELEASE in the terminal.
+6. To compile and create a debug version type make DEBUG in the terminal.
+7. To clean up .o files created by the project, type make CLEAN in the terminal. 
+
+## Testing
+#### Outputs: 

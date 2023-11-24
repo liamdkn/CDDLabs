@@ -1,3 +1,11 @@
+/**
+ * @file Semaohore.cpp
+ * @brief 
+ * @author Joseph Kehoe
+ * @date 27/10/2019
+ * @copyright GPL-3.0
+ */
+
 #ifndef SEMAPHORE_H
 #define SEMAPHORE_H 
 #include <mutex>

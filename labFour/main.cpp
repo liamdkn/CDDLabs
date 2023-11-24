@@ -1,3 +1,11 @@
+/**
+ * @file main.cpp
+ * @brief 
+ * @author Joseph Kehoe
+ * @date 27/10/2019
+ * @copyright GPL-3.0
+ */
+
 #include "Barrier.h"
 #include "Event.h"
 #include <iostream>
