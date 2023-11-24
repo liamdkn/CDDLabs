@@ -1,0 +1,51 @@
+\chapter{Lab 1 -\/ The Basics}
+\hypertarget{index}{}\label{index}\index{Lab 1 -\/ The Basics@{Lab 1 -\/ The Basics}}
+\label{index_md__2_users_2liamdurkan_2_desktop_2_college_01_s_e_t_u_2_repositories_01_2_concurrent_development-_2lab_six_2_r_e_a_d_m_e}%
+\Hypertarget{index_md__2_users_2liamdurkan_2_desktop_2_college_01_s_e_t_u_2_repositories_01_2_concurrent_development-_2lab_six_2_r_e_a_d_m_e}%
+
+\begin{DoxyItemize}
+\item The lab introduces the topic of open\+MP using algorithims.
+\end{DoxyItemize}\hypertarget{index_autotoc_md1}{}\doxysection{\texorpdfstring{Information}{Information}}\label{index_autotoc_md1}
+\hypertarget{index_autotoc_md2}{}\doxysubsubsection{\texorpdfstring{Project Licence\+:}{Project Licence:}}\label{index_autotoc_md2}
+
+\begin{DoxyItemize}
+\item GPL-\/3.\+0
+\end{DoxyItemize}\hypertarget{index_autotoc_md3}{}\doxysubsubsection{\texorpdfstring{Project Author\+:}{Project Author:}}\label{index_autotoc_md3}
+
+\begin{DoxyItemize}
+\item Original Author\+: Joseph Keohe~\newline
+
+\item Makefile and modifications\+: Liam Durkan
+\item \href{https://github.com/liamdkn/CDDLabs}{\texttt{ My Git\+Hib}}
+\end{DoxyItemize}\hypertarget{index_autotoc_md4}{}\doxysection{\texorpdfstring{To install this project}{To install this project}}\label{index_autotoc_md4}
+
+\begin{DoxyEnumerate}
+\item Check that gcc is installed on the machine. I am using using version 11.\+0.\+3
+\item Create a clone of the repositiory
+\item Open a terminal and navigate to the project directory.
+\end{DoxyEnumerate}\hypertarget{index_autotoc_md5}{}\doxysection{\texorpdfstring{Files included in this project\+:}{Files included in this project:}}\label{index_autotoc_md5}
+
+\begin{DoxyItemize}
+\item Makefile -\/ Complies each cpp file and creates an executable
+\item mandelbroit.\+cpp -\/ Implementation of the Mandelbrot set calculation using Open\+MP parallelization.
+\item reduction.\+cpp -\/ Demonstrates parallel reduction techniques using Open\+MP
+\item quicksort.\+cpp -\/ Implementation of the quicksort algorithm using Open\+MP.
+\item \doxylink{hello_threads_8cpp}{hello\+Threads.\+cpp} -\/ Use Open\+MP to print concurrently
+\item README -\/ This file. Contaning information for Lab6, how to install, compile \& execute
+\end{DoxyItemize}\hypertarget{index_autotoc_md6}{}\doxysection{\texorpdfstring{How to complie and run the project}{How to complie and run the project}}\label{index_autotoc_md6}
+
+\begin{DoxyEnumerate}
+\item Open a new terminal and navigate to the repositorys directory.
+\item To complie and create an executable, navigate to the folder directory and type make in the terminal ~\newline
+
+\item To compile and create a release version type make RELEASE in the terminal.
+\item To compile and create a debug version type make DEBUG in the terminal.
+\item To clean up .o files created by the project, type make CLEAN in the terminal.
+\end{DoxyEnumerate}\hypertarget{index_autotoc_md7}{}\doxysection{\texorpdfstring{Examples of Map Pattern}{Examples of Map Pattern}}\label{index_autotoc_md7}
+Map is the simplest pattern. It is embarrisingly parallel with no need for any data sharing between threads.
+
+Two examples are included here with code showing how to get timing results demonstrating speedup.\hypertarget{index_autotoc_md8}{}\doxysubsection{\texorpdfstring{SAXPY}{SAXPY}}\label{index_autotoc_md8}
+This is a standard algorithm used a lot in simulation. It stands for Single-\/precision y \+:= alpha \texorpdfstring{$\ast$}{*} x + y where alpha is a scalar and x and y are n-\/vectors. SAXPY is a combination of scalar multiplication and vector addition, and it’s very simple\+: it takes as input two vectors of 32-\/bit floats X and Y with N elements each, and a scalar value A. It multiplies each element X\mbox{[}i\mbox{]} by A and adds the result to Y\mbox{[}i\mbox{]}. There are Double and Complex data type versions as well -\/ DAxpy, Caxpy, Zaxpy.\hypertarget{index_autotoc_md9}{}\doxysubsection{\texorpdfstring{Mandelbroit Set}{Mandelbroit Set}}\label{index_autotoc_md9}
+The Mandelbrot set is a two-\/dimensional set with a relatively simple definition that exhibits great complexity, especially as it is magnified. It is popular for its aesthetic appeal and fractal structures. The set is defined in the complex plane as the complex numbers c c for which the function f\+\_\+\{c\}(z)=z\texorpdfstring{$^\wedge$}{\string^}\{2\}+c does not diverge to infinity when iterated starting at z = 0 z=0, i.\+e., for which the sequence f\+\_\+\{c\}(0)\}, f\+\_\+\{c\}(f\+\_\+\{c\}(0))\}, etc., remains bounded in absolute value.
+
+This set was first defined and drawn by Robert W. Brooks and Peter Matelski in 1978, as part of a study of Kleinian groups.\mbox{[}3\mbox{]} Afterwards, in 1980, Benoit Mandelbrot obtained high-\/quality visualizations of the set while working at IBM\textquotesingle{}s Thomas J. Watson Research Center in Yorktown Heights, New York. \href{https://en.wikipedia.org/wiki/Mandelbrot_set}{\texttt{ label}} 
