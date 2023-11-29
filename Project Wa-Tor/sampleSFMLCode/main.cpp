@@ -25,8 +25,8 @@ struct Neighbours{
 };
 
 // Variables
-int NumShark = 2;
-int NumFish = 2;
+int NumShark = 4;
+int NumFish = 4;
 int FishBreed = 0;
 int SharkBreed = 0;
 int Starve = 0;
@@ -84,58 +84,35 @@ void populateShark() {
     }
 }
 
-void moveShark(int x, int y) {
+void moveAnimal(int x, int y, int id) {
     randomNumber = (std::rand() % 4) + 1;
     switch (randomNumber) {
         case 1:
-            newOceanGrid[x][((y - 1) + ydim) % ydim].id = 1;  // up
+            newOceanGrid[x][((y - 1) + ydim) % ydim].id = id;  // up
             newOceanGrid[x][y].id = 0;
             break;
         case 2:
-            newOceanGrid[x][(y + 1) % ydim].id = 1;  // down
+            newOceanGrid[x][(y + 1) % ydim].id = id;  // down
             newOceanGrid[x][y].id = 0;
             break;
         case 3:
-            newOceanGrid[((x - 1) + xdim) % xdim][y].id = 1;  // left
+            newOceanGrid[((x - 1) + xdim) % xdim][y].id = id;  // left
             newOceanGrid[x][y].id = 0;
             break;
         case 4:
-            newOceanGrid[(x + 1) % xdim][y].id = 1;  // right
+            newOceanGrid[(x + 1) % xdim][y].id = id;  // right
             newOceanGrid[x][y].id = 0;
             break;
     }
 }
-
-void moveFish(int x, int y) {
-    randomNumber = (std::rand() % 4) + 1;
-    switch (randomNumber) {
-        case 1:
-            newOceanGrid[x][((y - 1) + ydim) % ydim].id = 2;  // up
-            newOceanGrid[x][y].id = 0;
-            break;
-        case 2:
-            newOceanGrid[x][(y + 1) % ydim].id = 2;  // down
-            newOceanGrid[x][y].id = 0;
-            break;
-        case 3:
-            newOceanGrid[((x - 1) + xdim) % xdim][y].id = 2;  // left
-            newOceanGrid[x][y].id = 0;
-            break;
-        case 4:
-            newOceanGrid[(x + 1) % xdim][y].id = 2;  // right
-            newOceanGrid[x][y].id = 0;
-            break;
-    }
-}
-
 
 void moveAnimal() {
     for (int x = 0; x < xdim; x++) {
         for (int y = 0; y < ydim; y++) {
             if (oceanGrid[x][y].id == 1) {
-                moveShark(x, y);
+                moveAnimal(x, y, 1);
             } else if (oceanGrid[x][y].id == 2) {
-                moveFish(x, y);
+                moveAnimal(x, y, 2);
             }
         }
     }
@@ -194,7 +171,7 @@ int main() {
             }
         }
         window.display();
-        sf::sleep(sf::seconds(1.0f / 1.0f));
+        sf::sleep(sf::seconds(1.0f / 10.0f));
     }
 
     return 0;
