@@ -1,9 +1,11 @@
 //Author: Liam Durkan 8/11/23
+//rhiks
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <chrono>
 
+using namespace std;
 
 struct Location{
     int xAxis;
@@ -22,14 +24,12 @@ struct Neighbours{
     int right;
 };
 
-using namespace std;
-
 // Variables
-int NumShark = 3;
-int NumFish = 3;
-int FishBreed = 5;
-int SharkBreed = 5;
-int Starve = 5;
+int NumShark = 2;
+int NumFish = 2;
+int FishBreed = 0;
+int SharkBreed = 0;
+int Starve = 0;
 int GridSize = 10;
 int Threads;
 
@@ -42,10 +42,10 @@ int cellXSize=WindowXSize/xdim;
 int cellYSize=WindowYSize/ydim;
 
 int randomNumber;
-//int chron = 10000;
 
 //Array representing whats in a cell
 Cell oceanGrid[xdim][ydim];
+Cell newOceanGrid[xdim][ydim];
 sf::RectangleShape recArray[xdim][ydim];
 
 
@@ -56,21 +56,11 @@ Location randomLocation(){
     return randomLoc;
 }
 
-void initaliseOcean(){
+void initialiseOcean(){
     for (int i = 0; i < xdim; i++) {
         for (int j = 0; j < ydim; j++) {
-            oceanGrid[i][j].id = 0; //  Initalise every element in the array to zero
+            oceanGrid[i][j].id = 0;
         }
-    }
-}
-
-void populateShark() {
-    for (int i = 0; i < NumShark; i++) {
-        Location sharkLocation;
-        do {
-            sharkLocation = randomLocation();
-        } while (oceanGrid[sharkLocation.xAxis][sharkLocation.yAxis].id != 0);
-        oceanGrid[sharkLocation.xAxis][sharkLocation.yAxis].id = 1;
     }
 }
 
@@ -84,19 +74,180 @@ void populateFish() {
     }
 }
 
-Neighbours getNeighbours(int x, int y) {
-    Neighbours neighbours;
-    neighbours.above = ((y + 1) < ydim) ? oceanGrid[x][y + 1].id : oceanGrid[x][0].id;
-    neighbours.below = ((y - 1) >= 0) ? oceanGrid[x][y - 1].id : oceanGrid[x][ydim - 1].id;
-    neighbours.left = ((x - 1) >= 0) ? oceanGrid[x - 1][y].id : oceanGrid[xdim - 1][y].id;
-    neighbours.right = ((x + 1) < xdim) ? oceanGrid[x + 1][y].id : oceanGrid[0][y].id;
-    return neighbours;
+void populateShark() {
+    for (int i = 0; i < NumShark; i++) {
+        Location sharkLocation;
+        do {
+            sharkLocation = randomLocation();
+        } while (oceanGrid[sharkLocation.xAxis][sharkLocation.yAxis].id != 0);
+        oceanGrid[sharkLocation.xAxis][sharkLocation.yAxis].id = 1;
+    }
 }
 
+void moveShark(int x, int y) {
+    randomNumber = (std::rand() % 4) + 1;
+    switch (randomNumber) {
+        case 1:
+            newOceanGrid[x][((y - 1) + ydim) % ydim].id = 1;  // up
+            newOceanGrid[x][y].id = 0;
+            break;
+        case 2:
+            newOceanGrid[x][(y + 1) % ydim].id = 1;  // down
+            newOceanGrid[x][y].id = 0;
+            break;
+        case 3:
+            newOceanGrid[((x - 1) + xdim) % xdim][y].id = 1;  // left
+            newOceanGrid[x][y].id = 0;
+            break;
+        case 4:
+            newOceanGrid[(x + 1) % xdim][y].id = 1;  // right
+            newOceanGrid[x][y].id = 0;
+            break;
+    }
+}
+
+void moveFish(int x, int y) {
+    randomNumber = (std::rand() % 4) + 1;
+    switch (randomNumber) {
+        case 1:
+            newOceanGrid[x][((y - 1) + ydim) % ydim].id = 2;  // up
+            newOceanGrid[x][y].id = 0;
+            break;
+        case 2:
+            newOceanGrid[x][(y + 1) % ydim].id = 2;  // down
+            newOceanGrid[x][y].id = 0;
+            break;
+        case 3:
+            newOceanGrid[((x - 1) + xdim) % xdim][y].id = 2;  // left
+            newOceanGrid[x][y].id = 0;
+            break;
+        case 4:
+            newOceanGrid[(x + 1) % xdim][y].id = 2;  // right
+            newOceanGrid[x][y].id = 0;
+            break;
+    }
+}
+
+
+void moveAnimal() {
+    for (int x = 0; x < xdim; x++) {
+        for (int y = 0; y < ydim; y++) {
+            if (oceanGrid[x][y].id == 1) {
+                moveShark(x, y);
+            } else if (oceanGrid[x][y].id == 2) {
+                moveFish(x, y);
+            }
+        }
+    }
+    // Copy changes from newOceanGrid to oceanGrid
+    for (int x = 0; x < xdim; x++) {
+        for (int y = 0; y < ydim; y++) {
+            oceanGrid[x][y] = newOceanGrid[x][y];
+        }
+    }
+}
+
+void updateOcean(){
+    for (int i = 0; i < xdim; ++i) {
+        for (int k = 0; k < ydim; ++k) {
+            recArray[i][k].setSize(sf::Vector2f(80.f, 60.f));
+            recArray[i][k].setPosition(i * 80.f, k * 60.f);
+
+            if (oceanGrid[i][k].id == 1) {
+                recArray[i][k].setFillColor(sf::Color::Green);
+            }
+            else if(oceanGrid[i][k].id == 2) {
+                recArray[i][k].setFillColor(sf::Color::Red);
+            }
+            else {
+                recArray[i][k].setFillColor(sf::Color::Blue);
+            }
+        }
+    }
+}
+int main() {
+
+    std::srand(std::time(0));
+    initialiseOcean();
+    populateShark();
+    populateFish();
+    updateOcean();
+
+
+    sf::RenderWindow window(sf::VideoMode(800, 600), "SFML Wa-Tor world");
+
+    while (window.isOpen()) {
+        sf::Event event;
+        while (window.pollEvent(event)) {
+            if (event.type == sf::Event::Closed)
+                window.close();
+        }
+
+        moveAnimal();
+        updateOcean();
+        
+
+        window.clear(sf::Color::Black);
+        for (int i = 0; i < xdim; ++i) {
+            for (int k = 0; k < ydim; ++k) {
+                window.draw(recArray[i][k]);
+            }
+        }
+        window.display();
+        sf::sleep(sf::seconds(1.0f / 1.0f));
+    }
+
+    return 0;
+}
+
+
+/*
+void moveAnimal(){
+//loop to move fish/sharks
+        for (int i = 0; i < xdim; i++) {
+                for (int j = 0; j < ydim; j++) {
+                    if(oceanGrid[i][j].id == 1){
+                        //moveShark(i,j);
+                    }
+                    else if(oceanGrid[i][j].id == 2){
+                        //moveFish(i,j);
+                    }
+                }
+            }
+}
+void moveAnimal(){
+    // Create a temporary grid to store the new state
+    
+    for (int i = 0; i < xdim; i++) {
+        for (int j = 0; j < ydim; j++) {
+            newOceanGrid[i][j] = oceanGrid[i][j];
+        }
+    }
+
+    // Move sharks and fish in the temporary grid
+    for (int i = 0; i < xdim; i++) {
+        for (int j = 0; j < ydim; j++) {
+            if (oceanGrid[i][j].id == 1) {
+                moveShark(i, j);
+            } else if (oceanGrid[i][j].id == 2) {
+                moveFish(i, j);
+            }
+        }
+    }
+
+    // Update the original oceanGrid based on the new state
+    for (int i = 0; i < xdim; i++) {
+        for (int j = 0; j < ydim; j++) {
+            oceanGrid[i][j] = newOceanGrid[i][j];
+        }
+    }
+}*/
+
+/*
 void moveShark(int x, int y){
     Neighbours neighbours = getNeighbours(x, y);
 
-    /*if (neighbours.above == 2) {
+    if (neighbours.above == 2) {
         oceanGrid[x][y - 1].id = oceanGrid[x][y].id;
         oceanGrid[x][y].id = 0;
     } else if (neighbours.below == 2) {
@@ -108,35 +259,37 @@ void moveShark(int x, int y){
     } else if (neighbours.right == 2) {
         oceanGrid[x + 1][y].id = oceanGrid[x][y].id;
         oceanGrid[x][y].id = 0;
-    } else {*/
+    } else {
         randomNumber = (std::rand() % 4) + 1;
+    //std::cout << "The value of the number is: " << randomNumber << std::endl;
         switch (randomNumber) {
             case 1:
                 if (neighbours.above == 0) {
-                    oceanGrid[x][y - 1].id = oceanGrid[x][y].id;
-                    oceanGrid[x][y].id = 0;
+                    newOceanGrid[x][y - 1].id = newOceanGrid[x][y].id;
+                    newOceanGrid[x][y].id = 0;
                 }
                 break;
             case 2:
                 if (neighbours.below == 0) {
-                    oceanGrid[x][y + 1].id = oceanGrid[x][y].id;
-                    oceanGrid[x][y].id = 0;
+                    newOceanGrid[x][y + 1].id = newOceanGrid[x][y].id;
+                    newOceanGrid[x][y].id = 0;
                 }
                 break;
             case 3:
                 if (neighbours.left == 0) {
-                    oceanGrid[x - 1][y].id = oceanGrid[x][y].id;
-                    oceanGrid[x][y].id = 0;
+                    newOceanGrid[x - 1][y].id = newOceanGrid[x][y].id;
+                    newOceanGrid[x][y].id = 0;
                 }
                 break;
             case 4:
                 if (neighbours.right == 0) {
-                    oceanGrid[x + 1][y].id = oceanGrid[x][y].id;
-                    oceanGrid[x][y].id = 0;
+                    newOceanGrid[x + 1][y].id = newOceanGrid[x][y].id;
+                    newOceanGrid[x][y].id = 0;
                 }
                 break;
         }
     }
+
 //}
 
 
@@ -144,102 +297,33 @@ void moveFish(int x, int y){
     Neighbours neighbours = getNeighbours(x,y);
     
     randomNumber = (std::rand() % 4) + 1;
+    //std::cout << "The value of the number is: " << randomNumber << std::endl;
     switch (randomNumber) {
         case 1:
             if(neighbours.above == 0){
-                oceanGrid[x][y+1].id = oceanGrid[x][y].id;
-                oceanGrid[x][y].id = 0;
+                newOceanGrid[x][y+1].id = newOceanGrid[x][y].id;
+                newOceanGrid[x][y].id = 0;
             }
             break;
         case 2:
             if(neighbours.below == 0){
-                oceanGrid[x][y-1].id = oceanGrid[x][y].id;
-                oceanGrid[x][y].id = 0;
+                newOceanGrid[x][y-1].id = newOceanGrid[x][y].id;
+                newOceanGrid[x][y].id = 0;
             }
             break;
         case 3:
             if(neighbours.left == 0){
-            oceanGrid[x-1][y].id = oceanGrid[x][y].id;
-            oceanGrid[x][y].id = 0;
+            newOceanGrid[x-1][y].id = newOceanGrid[x][y].id;
+            newOceanGrid[x][y].id = 0;
             }
             break;
         case 4:
             if(neighbours.right == 0){
-            oceanGrid[x+1][y].id = oceanGrid[x][y].id;
-            oceanGrid[x][y].id = 0;
+            newOceanGrid[x+1][y].id = newOceanGrid[x][y].id;
+            newOceanGrid[x][y].id = 0;
             }
             break;
     }
+
 }
-
-void updateOcean(){
-    for(int i=0;i<xdim;++i){
-        for(int k=0;k<ydim;++k){//give each one a size, position and color
-            recArray[i][k].setSize(sf::Vector2f(80.f,60.f));
-            recArray[i][k].setPosition(i*cellXSize,k*cellYSize);//position is top left corner!
-
-            if(oceanGrid[i][k].id == 1){
-                recArray[i][k].setFillColor(sf::Color::Green);
-            }
-            else if(oceanGrid[i][k].id == 2){
-                recArray[i][k].setFillColor(sf::Color::Red);
-            }
-            else{
-                recArray[i][k].setFillColor(sf::Color::Blue);
-            }  
-        }
-    }
-}
-
-int main()
-{
-    sf::Clock clock;
-    sf::Time elapsed;
-
-    initaliseOcean();
-    populateFish();
-    populateShark();
-
-    //each shape will represent either a fish, shark or empty space
-    //e.g. blue for empty, red for shark and green for fish
-    
-    sf::RenderWindow window(sf::VideoMode(WindowXSize,WindowYSize), "SFML Wa-Tor world");
-
-    updateOcean();
-
-    while (window.isOpen())
-    {
-        elapsed = clock.restart();
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
-
-        //loop to move fish/sharks
-        for (int i = 0; i < xdim; i++) {
-                for (int j = 0; j < ydim; j++) {
-                    if(oceanGrid[i][j].id == 1){
-                        moveShark(i,j);
-                    }
-                    else if(oceanGrid[i][j].id == 2){
-                        moveFish(i,j);
-                    }
-                }
-            }
-
-        updateOcean();
-    
-    //loop these three lines to draw frames
-        window.clear(sf::Color::Black);
-        for(int i=0;i<xdim;++i){
-            for(int k=0;k<ydim;++k){
-            window.draw(recArray[i][k]);
-            }
-        }
-        window.display();
-        sf::sleep(sf::seconds(1.0f / 1.0f));
-        }
-    return 0;
-}
+*/
