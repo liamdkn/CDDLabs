@@ -26,14 +26,13 @@ struct Neighbours{
 };
 
 // Variables
-int NumShark = 10;   
-int NumFish = 5; 
-int FishBreed = 40;   
-int SharkBreed = 40; 
+int NumShark = 1;   
+int NumFish = 2; 
+int FishBreed = 110;   
+int SharkBreed =60; 
 int Starve = 60;//number of moves a shark can move before dying withouth eating  
 int GridSize = 1000;
 int Threads;
-
 
 const int xdim = 100;
 const int ydim= 100;
@@ -84,27 +83,7 @@ void populateAnimals(){
     }
 }
 
-void starveShark(int sharkX, int sharkY){
-    tempOceanGrid[sharkX][sharkY].id = 0;
-    tempOceanGrid[sharkX][sharkY].breed = 0;
-    tempOceanGrid[sharkX][sharkY].starve = 0;
-}
-
-void eatFish(std::vector<std::pair<int, int> > fishNeighbors, int sharkX, int sharkY){
-    int randomFish = std::rand() % fishNeighbors.size();
-    int fishX = fishNeighbors[randomFish].first;
-    int fishY = fishNeighbors[randomFish].second;
-
-    tempOceanGrid[fishX][fishY].id = 1; //Shark moves to fish location
-    tempOceanGrid[fishX][fishY].starve = Starve; //Starve reset
-    tempOceanGrid[fishX][fishY].breed = tempOceanGrid[sharkX][sharkY].breed;
-    tempOceanGrid[sharkX][sharkY].id = 0; //Remove sharks last location  
-    tempOceanGrid[sharkX][sharkY].starve = 0; //Clear starve           
-    std::cout << "eating a fish:" << std::endl;
-
-}
-
-void moveFish(int x, int y){
+std::pair<int, int> randomDirection(int x, int y){
     int newX = x;
     int newY = y;
 
@@ -122,25 +101,25 @@ void moveFish(int x, int y){
             newX = (x + 1) % xdim;  // right
             break;
     }
+    return std::make_pair(newX, newY);
+}
 
-    if (tempOceanGrid[newX][newY].id == 0) {
-        if(tempOceanGrid[x][y].breed >= FishBreed) {
-            tempOceanGrid[newX][newY].id = 2;
-            tempOceanGrid[newX][newY].breed = 0; 
-            tempOceanGrid[x][y].breed = 0; 
-            return;
-        } 
-        else {
-            tempOceanGrid[newX][newY].id = 2;
-            tempOceanGrid[x][y].id = 0;
-            tempOceanGrid[newX][newY].breed = tempOceanGrid[x][y].breed + 1; 
-            return;
-    }
-    } 
-    else if (tempOceanGrid[x][y].breed >= FishBreed) {
-        tempOceanGrid[x][y].breed = 0;// Reproduce in the current cell if the breed condition is met
-        return;
-    }
+void starveShark(int sharkX, int sharkY){
+    tempOceanGrid[sharkX][sharkY].id = 0;
+    tempOceanGrid[sharkX][sharkY].breed = 0;
+    tempOceanGrid[sharkX][sharkY].starve = 0;
+}
+
+void eatFish(std::vector<std::pair<int, int> > fishNeighbors, int sharkX, int sharkY){
+    int randomFish = std::rand() % fishNeighbors.size();
+    int fishX = fishNeighbors[randomFish].first;
+    int fishY = fishNeighbors[randomFish].second;
+
+    tempOceanGrid[fishX][fishY].id = 1; //Shark moves to fish location
+    tempOceanGrid[fishX][fishY].starve = Starve; //Starve reset
+    tempOceanGrid[fishX][fishY].breed = tempOceanGrid[sharkX][sharkY].breed;
+    tempOceanGrid[sharkX][sharkY].id = 0; //Remove sharks last location  
+    tempOceanGrid[sharkX][sharkY].starve = 0; //Clear starve           
 }
 
 std::vector<std::pair<int, int> > findFish(int x, int y) {
@@ -162,6 +141,31 @@ std::vector<std::pair<int, int> > findFish(int x, int y) {
     return fishNeighbors;
 }
 
+void moveFish(int x, int y){
+    std::pair<int, int> newLocation = randomDirection(x, y);
+    int newX = newLocation.first;
+    int newY = newLocation.second;
+
+    if (tempOceanGrid[newX][newY].id == 0) {
+        if(tempOceanGrid[x][y].breed >= FishBreed) {
+            tempOceanGrid[newX][newY].id = 2;
+            tempOceanGrid[newX][newY].breed = 0; 
+            tempOceanGrid[x][y].breed = 0; 
+            return;
+        } 
+        else {
+            tempOceanGrid[newX][newY].id = 2;
+            tempOceanGrid[x][y].id = 0;
+            tempOceanGrid[newX][newY].breed = tempOceanGrid[x][y].breed + 1; 
+            return;
+    }
+    } 
+    else if (tempOceanGrid[x][y].breed >= FishBreed) {
+        tempOceanGrid[x][y].breed = 0;// Reproduce in the current cell if the breed condition is met
+        return;
+    }
+    oceanGrid[x][y] = tempOceanGrid[x][y];
+}
 
 void moveShark(int x, int y) {
     int newX = x;
@@ -180,20 +184,9 @@ void moveShark(int x, int y) {
         eatFish(fishNeighbors, x, y);
     } else {
         // Move to a random location
-        switch (((std::rand() % 4) + 1)) {
-            case 1:
-                newY = (y - 1 + ydim) % ydim;  // up
-                break;
-            case 2:
-                newY = (y + 1) % ydim;  // down
-                break;
-            case 3:
-                newX = (x - 1 + xdim) % xdim;  // left
-                break;
-            case 4:
-                newX = (x + 1) % xdim;  // right
-                break;
-        }
+        std::pair<int, int> newLocation = randomDirection(x, y);
+        newX = newLocation.first;
+        newY = newLocation.second;
 
         if (tempOceanGrid[newX][newY].id == 0) {
             if (tempOceanGrid[x][y].breed >= SharkBreed) {
@@ -208,9 +201,8 @@ void moveShark(int x, int y) {
         }
     }
     }
+    oceanGrid[x][y] = tempOceanGrid[x][y];
 }
-
-
 
 void moveAnimal(){
     for(int x = 0; x < xdim; x++){
@@ -233,8 +225,6 @@ void moveAnimal(){
 void updateOcean(){
     for(int i = 0; i < xdim; ++i){
         for(int k = 0; k < ydim; ++k){
-
-
             if(oceanGrid[i][k].id == 1){
                 recArray[i][k].setFillColor(sf::Color::Red);  // shark
             }
@@ -249,9 +239,11 @@ void updateOcean(){
 }
 
 int main() {
+    int chronon = 0;
+    int maxChronons = 10000000;  // Set the desired number of chronons
 
     sf::RenderWindow window(sf::VideoMode(WindowXSize, WindowYSize), "SFML Wa-Tor world");
-    std::srand(123);
+    std::srand(std::time(0));
     initialiseOcean();
     populateAnimals();
 
@@ -263,7 +255,7 @@ int main() {
     }
     updateOcean();
 
-    while (window.isOpen()) {
+    while (window.isOpen() && chronon < maxChronons) {
         sf::Event event;
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed)
@@ -280,7 +272,10 @@ int main() {
             }
         }
         window.display();
-        sf::sleep(sf::seconds(1.0f / 40.0f));
+        ++chronon;
+        //sf::sleep(sf::seconds(1.0f / 40.0f));
     }
+        std::cout << "chrons: " << chronon << std::endl;
+
     return 0;
 }
