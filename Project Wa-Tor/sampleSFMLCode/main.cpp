@@ -4,6 +4,8 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <chrono>
+#include <thread>
+#include <vector>
 
 using namespace std;
 
@@ -25,6 +27,8 @@ struct Neighbours{
     int right;
 };
 
+std::mutex myMutex; 
+
 // Variables
 int NumShark = 1;   
 int NumFish = 2; 
@@ -32,7 +36,10 @@ int FishBreed = 110;
 int SharkBreed =60; 
 int Starve = 60;//number of moves a shark can move before dying withouth eating  
 int GridSize = 1000;
-int Threads;
+int numThreads;
+int sharkCount = 0;
+int fishCount = 0;
+
 
 const int xdim = 100;
 const int ydim= 100;
@@ -47,14 +54,20 @@ Cell oceanGrid[xdim][ydim];
 Cell tempOceanGrid[xdim][ydim];
 sf::RectangleShape recArray[xdim][ydim];
 
-Location randomLocation(){
+Location randomLocation(){  
     Location randomLoc;
     randomLoc.xAxis = rand() % xdim;
     randomLoc.yAxis = rand() % ydim;
     return randomLoc;
 }
 
-void initialiseOcean(){
+void initialiseOcean(){ //set up cells and initalize them to 0 
+    for(int i = 0; i < xdim; ++i){
+        for(int k = 0; k < ydim; ++k){
+            recArray[i][k].setSize(sf::Vector2f(static_cast<float>(cellXSize), static_cast<float>(cellYSize)));
+            recArray[i][k].setPosition(i * cellXSize, k * cellYSize);
+        }
+    }
     for(int i = 0; i < xdim; i++){
         for(int j = 0; j < ydim; j++){
             oceanGrid[i][j].id = 0;
@@ -67,19 +80,18 @@ void populateAnimals(){
     for(int i = 0; i < NumFish; i++){
         Location fishLocation;
         do{
-            fishLocation = randomLocation();
-        } while(oceanGrid[fishLocation.xAxis][fishLocation.yAxis].id != 0);
-        oceanGrid[fishLocation.xAxis][fishLocation.yAxis].id = 2;
+            fishLocation = randomLocation();    //Get random location on the grid
+        } while(oceanGrid[fishLocation.xAxis][fishLocation.yAxis].id != 0); //while the location is ocean 
+        oceanGrid[fishLocation.xAxis][fishLocation.yAxis].id = 2;   //place a 'fish' here 
         oceanGrid[fishLocation.xAxis][fishLocation.yAxis].breed = 0;
     }
-    for(int i = 0; i < NumShark; i++){
-        Location sharkLocation;
+    for(int i = 0; i < NumShark; i++){  //for the amount of initial sharks 
+        Location sharkLocation; 
         do{
             sharkLocation = randomLocation();
-        }while(oceanGrid[sharkLocation.xAxis][sharkLocation.yAxis].id != 0);
-        oceanGrid[sharkLocation.xAxis][sharkLocation.yAxis].id = 1;
+        }while(oceanGrid[sharkLocation.xAxis][sharkLocation.yAxis].id != 0);    //while the location is ocean 
+        oceanGrid[sharkLocation.xAxis][sharkLocation.yAxis].id = 1; //place a shark here
         oceanGrid[sharkLocation.xAxis][sharkLocation.yAxis].starve = 0;
-
     }
 }
 
@@ -87,7 +99,7 @@ std::pair<int, int> randomDirection(int x, int y){
     int newX = x;
     int newY = y;
 
-    switch(((std::rand() % 4) + 1)){
+    switch(((std::rand() % 4) + 1)){    //randomly chose between 1 - 4
         case 1:
             newY = (y - 1 + ydim) % ydim;  // up 
             break;
@@ -101,7 +113,7 @@ std::pair<int, int> randomDirection(int x, int y){
             newX = (x + 1) % xdim;  // right
             break;
     }
-    return std::make_pair(newX, newY);
+    return std::make_pair(newX, newY);  //return new random move 
 }
 
 void starveShark(int sharkX, int sharkY){
@@ -173,7 +185,6 @@ void moveShark(int x, int y) {
     tempOceanGrid[x][y].starve++;
 
     if (tempOceanGrid[x][y].starve >= Starve) {
-        std::cout << "loop:" << tempOceanGrid[x][y].starve << std::endl;
         starveShark(x, y);
         return;
     }
@@ -193,6 +204,8 @@ void moveShark(int x, int y) {
                 tempOceanGrid[newX][newY].id = 1;
                 tempOceanGrid[newX][newY].breed = 0;
                 tempOceanGrid[x][y].breed = 0;
+                std::cout << "shark breeding:" << tempOceanGrid[x][y].starve << std::endl;
+
             } else {
                 tempOceanGrid[newX][newY].id = 1;
                 tempOceanGrid[x][y].id = 0;
@@ -205,12 +218,16 @@ void moveShark(int x, int y) {
 }
 
 void moveAnimal(){
+    sharkCount = 0;
+    fishCount = 0;
     for(int x = 0; x < xdim; x++){
         for(int y = 0; y < ydim; y++){
             if(oceanGrid[x][y].id == 1){
                 moveShark(x, y);
+                sharkCount++;
             }else if(oceanGrid[x][y].id == 2){
                 moveFish(x, y);
+                fishCount++;
             }
         }
     }
@@ -238,44 +255,46 @@ void updateOcean(){
     }
 }
 
+
 int main() {
     int chronon = 0;
-    int maxChronons = 10000000;  // Set the desired number of chronons
+    int ChrononDuration = 1; 
+    int maxChronons = 10000000; 
+
 
     sf::RenderWindow window(sf::VideoMode(WindowXSize, WindowYSize), "SFML Wa-Tor world");
     std::srand(std::time(0));
     initialiseOcean();
     populateAnimals();
-
-    for(int i = 0; i < xdim; ++i){
-        for(int k = 0; k < ydim; ++k){
-            recArray[i][k].setSize(sf::Vector2f(static_cast<float>(cellXSize), static_cast<float>(cellYSize)));
-            recArray[i][k].setPosition(i * cellXSize, k * cellYSize);
-        }
-    }
     updateOcean();
 
+
     while (window.isOpen() && chronon < maxChronons) {
-        sf::Event event;
-        while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
-
-        moveAnimal();
-        updateOcean();
-
-        window.clear(sf::Color::Black);
-        for (int i = 0; i < xdim; ++i) {
-            for (int k = 0; k < ydim; ++k) {
-                window.draw(recArray[i][k]);
-            }
-        }
-        window.display();
-        ++chronon;
-        //sf::sleep(sf::seconds(1.0f / 40.0f));
+    sf::Event event;
+    while (window.pollEvent(event)) {
+        if (event.type == sf::Event::Closed)
+            window.close();
     }
-        std::cout << "chrons: " << chronon << std::endl;
+
+    for (int step = 0; step < ChrononDuration; ++step) {
+        moveAnimal();  
+        updateOcean(); 
+    }
+
+    window.clear(sf::Color::Black);
+    for (int i = 0; i < xdim; ++i) {
+        for (int k = 0; k < ydim; ++k) {
+            window.draw(recArray[i][k]);
+        }
+    }
+    window.display();
+
+    ++chronon; 
+}
+
+std::cout << "Generation: " << chronon << std::endl;
+std::cout << "Shark: " << sharkCount << std::endl;
+std::cout << "Fish: " << fishCount << std::endl;
 
     return 0;
 }
