@@ -276,22 +276,27 @@ void moveShark(int x, int y) {
     oceanGrid[x][y] = tempOceanGrid[x][y];
 }
 
-
+/**
+ * @brief Steps through every call in the grid calling moveFish or moveShark methods
+ *
+ */
 void moveAnimal(){
     sharkCount = 0;
     fishCount = 0;
+    #pragma omp parallel for collapse(2) shared(oceanGrid, tempOceanGrid, sharkCount, fishCount)
     for(int x = 0; x < xdim; x++){
         for(int y = 0; y < ydim; y++){
-            if(oceanGrid[x][y].id == 1){
+            if(oceanGrid[x][y].id == 1){    /**< If cell is a shark */
                 moveShark(x, y);
                 sharkCount++;
-            }else if(oceanGrid[x][y].id == 2){
+            }else if(oceanGrid[x][y].id == 2){  /**< If cell is a fish */
                 moveFish(x, y);
                 fishCount++;
             }
         }
     }
-    // copy changes from tempOceanGrid to oceanGrid
+    /**< copy changes from tempOceanGrid to oceanGrid */
+    #pragma omp parallel for collapse(2) shared(oceanGrid, tempOceanGrid)/**<  */
     for(int x = 0; x < xdim; x++){
         for(int y = 0; y < ydim; y++){
             oceanGrid[x][y] = tempOceanGrid[x][y];
@@ -299,6 +304,10 @@ void moveAnimal(){
     }
 }
 
+/**
+ * @brief Steps through every call in the grid changing colours based on ID
+ *
+ */
 void updateOcean(){
     for(int i = 0; i < xdim; ++i){
         for(int k = 0; k < ydim; ++k){
@@ -316,18 +325,22 @@ void updateOcean(){
 }
 
 
+/**
+ * @brief The main function controlling the Wa-Tor simulation.
+ *
+ * @return 0 on sucessful execution
+ */
 int main() {
-    int chronon = 0;
-    int ChrononDuration = 1; 
-    int maxChronons = 10000000; 
+    int chronon = 0; /**< The current chronon in the simulation. */
+    int ChrononDuration = 1; /**< The duration of each chronon in simulation steps. */
+    int maxChronons = 10000000; /**< The maximum number of chronons for the simulation. */
 
-
+    // Create SFML window
     sf::RenderWindow window(sf::VideoMode(WindowXSize, WindowYSize), "SFML Wa-Tor world");
-    std::srand(std::time(0));
+    std::srand(std::time(0)); // Seed for random number generation
     initialiseOcean();
     populateAnimals();
-    updateOcean();
-
+    updateOcean();  
 
     while (window.isOpen() && chronon < maxChronons) {
     sf::Event event;
@@ -348,13 +361,10 @@ int main() {
         }
     }
     window.display();
-
     ++chronon; 
 }
-
 std::cout << "Generation: " << chronon << std::endl;
 std::cout << "Shark: " << sharkCount << std::endl;
 std::cout << "Fish: " << fishCount << std::endl;
-
-    return 0;
+return 0;
 }
