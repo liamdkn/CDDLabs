@@ -1,0 +1,367 @@
+\doxysection{/\+Users/liamdurkan/\+Desktop/\+College SETU/\+Repositories /\+Concurrent\+Development-\//\+Project Wa-\/\+Tor/sample\+SFMLCode/main.cpp File Reference}
+\hypertarget{main_8cpp}{}\label{main_8cpp}\index{/Users/liamdurkan/Desktop/College SETU/Repositories /ConcurrentDevelopment-\//Project Wa-\/Tor/sampleSFMLCode/main.cpp@{/Users/liamdurkan/Desktop/College SETU/Repositories /ConcurrentDevelopment-\//Project Wa-\/Tor/sampleSFMLCode/main.cpp}}
+
+
+A program that simulates an ocean with fish \& sharks.  
+
+
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$SFML/\+Graphics.\+hpp$>$}\newline
+{\ttfamily \#include $<$chrono$>$}\newline
+{\ttfamily \#include $<$thread$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_location}{Location}}
+\begin{DoxyCompactList}\small\item\em Represents the location of a cell in the 2D grid. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_cell}{Cell}}
+\begin{DoxyCompactList}\small\item\em Represents a cell in the ocean grid. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_location}{Location}} \mbox{\hyperlink{main_8cpp_a5dc59a087423a4c5074cf0ab29433be1}{random\+Location}} ()
+\begin{DoxyCompactList}\small\item\em Generates a random location within the ocean grid. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{main_8cpp_a8dde42b4e4934e000b39fcf8bab9d400}{initialise\+Ocean}} ()
+\begin{DoxyCompactList}\small\item\em Initializes the ocean grid. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{main_8cpp_aa73e40343e9136723420a7d8fbf42966}{populate\+Animals}} ()
+\begin{DoxyCompactList}\small\item\em Populates the ocean grid with a specified number of fish and sharks. \end{DoxyCompactList}\item 
+std\+::pair$<$ int, int $>$ \mbox{\hyperlink{main_8cpp_a0adb8190d8ede0da0261fbf335edf0f4}{random\+Direction}} (int x, int y)
+\begin{DoxyCompactList}\small\item\em Generates a random direction for movement. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{main_8cpp_ac823ae9ce1f48ea011a335a65554c6c2}{starve\+Shark}} (int sharkX, int sharkY)
+\begin{DoxyCompactList}\small\item\em Resets all sharks attributes to 0. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{main_8cpp_a77cf64da82501804094f0a086c394474}{eat\+Fish}} (std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ fish\+Neighbors, int sharkX, int sharkY)
+\begin{DoxyCompactList}\small\item\em Shark eats a fish, moves to the location and updates starve status. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ \mbox{\hyperlink{main_8cpp_af8347821f202087636a583f8baf7db57}{find\+Fish}} (int x, int y)
+\begin{DoxyCompactList}\small\item\em Finds neighboring fish around a specified location. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{main_8cpp_a80b3619b5907b743b80f57accaca35d7}{move\+Fish}} (int x, int y)
+\begin{DoxyCompactList}\small\item\em Moves a fish to a random neighbour and reproduces if condion is met. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{main_8cpp_a1790e705b7c7c3da9c47c8d0fdd71a79}{move\+Shark}} (int x, int y)
+\begin{DoxyCompactList}\small\item\em Moves a shark, updates its attributes, calls eat\+Fish function and shark breeding. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{main_8cpp_acd9b09215a6763d54945464c431d445b}{move\+Animal}} ()
+\begin{DoxyCompactList}\small\item\em Steps through every call in the grid calling move\+Fish or move\+Shark methods. \end{DoxyCompactList}\item 
+\Hypertarget{main_8cpp_a9340fc67256bf8c607187f28bad4c4ca}\label{main_8cpp_a9340fc67256bf8c607187f28bad4c4ca} 
+void {\bfseries update\+Ocean} ()
+\begin{DoxyCompactList}\small\item\em Steps through every call in the grid changing colours based on ID. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
+\begin{DoxyCompactList}\small\item\em The main function controlling the Wa-\/\+Tor simulation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{main_8cpp_ab5612f83d98355be0eee285c91fca7cb}{Num\+Shark}} = 2
+\item 
+int \mbox{\hyperlink{main_8cpp_ae03fa36e44760f3e72588650b618e986}{Num\+Fish}} = 2
+\item 
+int \mbox{\hyperlink{main_8cpp_ae0f8319f4773693990c15e0e2a9c9c43}{Fish\+Breed}} = 70
+\item 
+int \mbox{\hyperlink{main_8cpp_a74382d1120f998a3644554387f061dec}{Shark\+Breed}} = 60
+\item 
+int \mbox{\hyperlink{main_8cpp_affc4a37b5496e39ef0b986ac8b18d446}{Starve}} = 100
+\item 
+int \mbox{\hyperlink{main_8cpp_aa84c6f4ba6f33ec1a17b3723fc593290}{num\+Threads}}
+\item 
+int \mbox{\hyperlink{main_8cpp_a0a180d59010f4ac976cc2e5ed78df1d1}{shark\+Count}} = 0
+\item 
+int \mbox{\hyperlink{main_8cpp_a7ca2bef016034bbf82fd7a9015892227}{fish\+Count}} = 0
+\item 
+const int \mbox{\hyperlink{main_8cpp_aea75dd10e09d2d3eb69ed47e48cf81dc}{xdim}} = 100
+\item 
+const int \mbox{\hyperlink{main_8cpp_ae4edf59451b5b93478325e260849c564}{ydim}} = 100
+\item 
+int \mbox{\hyperlink{main_8cpp_a3f4a8292db833124f5a1e91360f07f6e}{Window\+XSize}} = 800
+\item 
+int \mbox{\hyperlink{main_8cpp_ad905d333f2bccae29a6aacd4135db39f}{Window\+YSize}} = 600
+\item 
+\Hypertarget{main_8cpp_aa8e110acff180f4b856bbba18bc17571}\label{main_8cpp_aa8e110acff180f4b856bbba18bc17571} 
+int {\bfseries cell\+XSize} = \mbox{\hyperlink{main_8cpp_a3f4a8292db833124f5a1e91360f07f6e}{Window\+XSize}} / \mbox{\hyperlink{main_8cpp_aea75dd10e09d2d3eb69ed47e48cf81dc}{xdim}}
+\item 
+\Hypertarget{main_8cpp_a1c06b91afed07dafab2f80215c675b1e}\label{main_8cpp_a1c06b91afed07dafab2f80215c675b1e} 
+int {\bfseries cell\+YSize} = \mbox{\hyperlink{main_8cpp_ad905d333f2bccae29a6aacd4135db39f}{Window\+YSize}} / \mbox{\hyperlink{main_8cpp_ae4edf59451b5b93478325e260849c564}{ydim}}
+\item 
+\mbox{\hyperlink{struct_cell}{Cell}} \mbox{\hyperlink{main_8cpp_a0e332093e1d6d539241ecd37a8d8dff6}{ocean\+Grid}} \mbox{[}\mbox{\hyperlink{main_8cpp_aea75dd10e09d2d3eb69ed47e48cf81dc}{xdim}}\mbox{]}\mbox{[}\mbox{\hyperlink{main_8cpp_ae4edf59451b5b93478325e260849c564}{ydim}}\mbox{]}
+\item 
+\mbox{\hyperlink{struct_cell}{Cell}} \mbox{\hyperlink{main_8cpp_a694be386a582d213180aee827c47cccc}{temp\+Ocean\+Grid}} \mbox{[}\mbox{\hyperlink{main_8cpp_aea75dd10e09d2d3eb69ed47e48cf81dc}{xdim}}\mbox{]}\mbox{[}\mbox{\hyperlink{main_8cpp_ae4edf59451b5b93478325e260849c564}{ydim}}\mbox{]}
+\item 
+\Hypertarget{main_8cpp_aa61e8678b5dd776a5ce26bf7cd4d92dc}\label{main_8cpp_aa61e8678b5dd776a5ce26bf7cd4d92dc} 
+sf\+::\+Rectangle\+Shape {\bfseries rec\+Array} \mbox{[}\mbox{\hyperlink{main_8cpp_aea75dd10e09d2d3eb69ed47e48cf81dc}{xdim}}\mbox{]}\mbox{[}\mbox{\hyperlink{main_8cpp_ae4edf59451b5b93478325e260849c564}{ydim}}\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A program that simulates an ocean with fish \& sharks. 
+
+\begin{DoxyAuthor}{Author}
+Liam Durkan 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+8/11/23 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{main_8cpp_a77cf64da82501804094f0a086c394474}\label{main_8cpp_a77cf64da82501804094f0a086c394474} 
+\index{main.cpp@{main.cpp}!eatFish@{eatFish}}
+\index{eatFish@{eatFish}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{eatFish()}{eatFish()}}
+{\footnotesize\ttfamily void eat\+Fish (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$}]{fish\+Neighbors,  }\item[{int}]{sharkX,  }\item[{int}]{sharkY }\end{DoxyParamCaption})}
+
+
+
+Shark eats a fish, moves to the location and updates starve status. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fish\+Neighbors} & A vector of std\+::pair$<$int, int$>$ representing the positions of neighboring fish \\
+\hline
+{\em sharkX} & The x-\/coordinate of the shark \\
+\hline
+{\em sharkY} & The y-\/coordinate of the shark \\
+\hline
+\end{DoxyParams}
+\Hypertarget{main_8cpp_af8347821f202087636a583f8baf7db57}\label{main_8cpp_af8347821f202087636a583f8baf7db57} 
+\index{main.cpp@{main.cpp}!findFish@{findFish}}
+\index{findFish@{findFish}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{findFish()}{findFish()}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ find\+Fish (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y }\end{DoxyParamCaption})}
+
+
+
+Finds neighboring fish around a specified location. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & The x-\/coordinate of the position \\
+\hline
+{\em y} & The y-\/coordinate of the position \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A vector of coordinates where the shark has fish as neighbors 
+\end{DoxyReturn}
+\texorpdfstring{$<$}{<} if y-\/1 == fish\Hypertarget{main_8cpp_a8dde42b4e4934e000b39fcf8bab9d400}\label{main_8cpp_a8dde42b4e4934e000b39fcf8bab9d400} 
+\index{main.cpp@{main.cpp}!initialiseOcean@{initialiseOcean}}
+\index{initialiseOcean@{initialiseOcean}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{initialiseOcean()}{initialiseOcean()}}
+{\footnotesize\ttfamily void initialise\+Ocean (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Initializes the ocean grid. 
+
+This function initializes the ocean grid by setting cell and starvation counters to zero \Hypertarget{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}\label{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4} 
+\index{main.cpp@{main.cpp}!main@{main}}
+\index{main@{main}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+The main function controlling the Wa-\/\+Tor simulation. 
+
+\begin{DoxyReturn}{Returns}
+0 on sucessful execution 
+\end{DoxyReturn}
+\texorpdfstring{$<$}{<} The current chronon in the simulation.
+
+\texorpdfstring{$<$}{<} The duration of each chronon in simulation steps.
+
+\texorpdfstring{$<$}{<} The maximum number of chronons for the simulation.\Hypertarget{main_8cpp_acd9b09215a6763d54945464c431d445b}\label{main_8cpp_acd9b09215a6763d54945464c431d445b} 
+\index{main.cpp@{main.cpp}!moveAnimal@{moveAnimal}}
+\index{moveAnimal@{moveAnimal}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{moveAnimal()}{moveAnimal()}}
+{\footnotesize\ttfamily void move\+Animal (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Steps through every call in the grid calling move\+Fish or move\+Shark methods. 
+
+\texorpdfstring{$<$}{<} If cell is a shark
+
+\texorpdfstring{$<$}{<} If cell is a fish
+
+\texorpdfstring{$<$}{<} ~\newline
+\Hypertarget{main_8cpp_a80b3619b5907b743b80f57accaca35d7}\label{main_8cpp_a80b3619b5907b743b80f57accaca35d7} 
+\index{main.cpp@{main.cpp}!moveFish@{moveFish}}
+\index{moveFish@{moveFish}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{moveFish()}{moveFish()}}
+{\footnotesize\ttfamily void move\+Fish (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y }\end{DoxyParamCaption})}
+
+
+
+Moves a fish to a random neighbour and reproduces if condion is met. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & The x-\/coordinate of the fish\textquotesingle{}s position. \\
+\hline
+{\em y} & The y-\/coordinate of the fish\textquotesingle{}s position. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{main_8cpp_a1790e705b7c7c3da9c47c8d0fdd71a79}\label{main_8cpp_a1790e705b7c7c3da9c47c8d0fdd71a79} 
+\index{main.cpp@{main.cpp}!moveShark@{moveShark}}
+\index{moveShark@{moveShark}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{moveShark()}{moveShark()}}
+{\footnotesize\ttfamily void move\+Shark (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y }\end{DoxyParamCaption})}
+
+
+
+Moves a shark, updates its attributes, calls eat\+Fish function and shark breeding. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & The x-\/coordinate of the shark\textquotesingle{}s position. \\
+\hline
+{\em y} & The y-\/coordinate of the shark\textquotesingle{}s position. \\
+\hline
+\end{DoxyParams}
+\texorpdfstring{$<$}{<} if starve is == to the threshold we remove the shark ~\newline
+\Hypertarget{main_8cpp_aa73e40343e9136723420a7d8fbf42966}\label{main_8cpp_aa73e40343e9136723420a7d8fbf42966} 
+\index{main.cpp@{main.cpp}!populateAnimals@{populateAnimals}}
+\index{populateAnimals@{populateAnimals}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{populateAnimals()}{populateAnimals()}}
+{\footnotesize\ttfamily void populate\+Animals (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Populates the ocean grid with a specified number of fish and sharks. 
+
+This function populates fisb and sharks randomly into empty cells in the ocean Fish are represented by number 2, and sharks by number 1 \Hypertarget{main_8cpp_a0adb8190d8ede0da0261fbf335edf0f4}\label{main_8cpp_a0adb8190d8ede0da0261fbf335edf0f4} 
+\index{main.cpp@{main.cpp}!randomDirection@{randomDirection}}
+\index{randomDirection@{randomDirection}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{randomDirection()}{randomDirection()}}
+{\footnotesize\ttfamily std\+::pair$<$ int, int $>$ random\+Direction (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y }\end{DoxyParamCaption})}
+
+
+
+Generates a random direction for movement. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & The current x-\/coordinate. \\
+\hline
+{\em y} & The current y-\/coordinate. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A pair of ints representing the next random direction 
+\end{DoxyReturn}
+\Hypertarget{main_8cpp_a5dc59a087423a4c5074cf0ab29433be1}\label{main_8cpp_a5dc59a087423a4c5074cf0ab29433be1} 
+\index{main.cpp@{main.cpp}!randomLocation@{randomLocation}}
+\index{randomLocation@{randomLocation}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{randomLocation()}{randomLocation()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_location}{Location}} random\+Location (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Generates a random location within the ocean grid. 
+
+\begin{DoxyReturn}{Returns}
+A \doxylink{struct_location}{Location} struct representing a random location. 
+\end{DoxyReturn}
+\Hypertarget{main_8cpp_ac823ae9ce1f48ea011a335a65554c6c2}\label{main_8cpp_ac823ae9ce1f48ea011a335a65554c6c2} 
+\index{main.cpp@{main.cpp}!starveShark@{starveShark}}
+\index{starveShark@{starveShark}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{starveShark()}{starveShark()}}
+{\footnotesize\ttfamily void starve\+Shark (\begin{DoxyParamCaption}\item[{int}]{sharkX,  }\item[{int}]{sharkY }\end{DoxyParamCaption})}
+
+
+
+Resets all sharks attributes to 0. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sharkX} & The x-\/coordinate of the shark \\
+\hline
+{\em sharkY} & The y-\/coordinate of the shark \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{main_8cpp_ae0f8319f4773693990c15e0e2a9c9c43}\label{main_8cpp_ae0f8319f4773693990c15e0e2a9c9c43} 
+\index{main.cpp@{main.cpp}!FishBreed@{FishBreed}}
+\index{FishBreed@{FishBreed}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{FishBreed}{FishBreed}}
+{\footnotesize\ttfamily int Fish\+Breed = 70}
+
+How mnay steps a fish must go to be able to breed \Hypertarget{main_8cpp_a7ca2bef016034bbf82fd7a9015892227}\label{main_8cpp_a7ca2bef016034bbf82fd7a9015892227} 
+\index{main.cpp@{main.cpp}!fishCount@{fishCount}}
+\index{fishCount@{fishCount}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{fishCount}{fishCount}}
+{\footnotesize\ttfamily int fish\+Count = 0}
+
+Number of fish currently \Hypertarget{main_8cpp_ae03fa36e44760f3e72588650b618e986}\label{main_8cpp_ae03fa36e44760f3e72588650b618e986} 
+\index{main.cpp@{main.cpp}!NumFish@{NumFish}}
+\index{NumFish@{NumFish}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{NumFish}{NumFish}}
+{\footnotesize\ttfamily int Num\+Fish = 2}
+
+Number of initial fish ~\newline
+ \Hypertarget{main_8cpp_ab5612f83d98355be0eee285c91fca7cb}\label{main_8cpp_ab5612f83d98355be0eee285c91fca7cb} 
+\index{main.cpp@{main.cpp}!NumShark@{NumShark}}
+\index{NumShark@{NumShark}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{NumShark}{NumShark}}
+{\footnotesize\ttfamily int Num\+Shark = 2}
+
+Number of initial sharks \Hypertarget{main_8cpp_aa84c6f4ba6f33ec1a17b3723fc593290}\label{main_8cpp_aa84c6f4ba6f33ec1a17b3723fc593290} 
+\index{main.cpp@{main.cpp}!numThreads@{numThreads}}
+\index{numThreads@{numThreads}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{numThreads}{numThreads}}
+{\footnotesize\ttfamily int num\+Threads}
+
+The number of threads for parallel processing \Hypertarget{main_8cpp_a0e332093e1d6d539241ecd37a8d8dff6}\label{main_8cpp_a0e332093e1d6d539241ecd37a8d8dff6} 
+\index{main.cpp@{main.cpp}!oceanGrid@{oceanGrid}}
+\index{oceanGrid@{oceanGrid}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{oceanGrid}{oceanGrid}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_cell}{Cell}} ocean\+Grid\mbox{[}\mbox{\hyperlink{main_8cpp_aea75dd10e09d2d3eb69ed47e48cf81dc}{xdim}}\mbox{]}\mbox{[}\mbox{\hyperlink{main_8cpp_ae4edf59451b5b93478325e260849c564}{ydim}}\mbox{]}}
+
+Main ocean grid \Hypertarget{main_8cpp_a74382d1120f998a3644554387f061dec}\label{main_8cpp_a74382d1120f998a3644554387f061dec} 
+\index{main.cpp@{main.cpp}!SharkBreed@{SharkBreed}}
+\index{SharkBreed@{SharkBreed}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{SharkBreed}{SharkBreed}}
+{\footnotesize\ttfamily int Shark\+Breed = 60}
+
+How mnay steps a shark must go to be able to breed \Hypertarget{main_8cpp_a0a180d59010f4ac976cc2e5ed78df1d1}\label{main_8cpp_a0a180d59010f4ac976cc2e5ed78df1d1} 
+\index{main.cpp@{main.cpp}!sharkCount@{sharkCount}}
+\index{sharkCount@{sharkCount}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{sharkCount}{sharkCount}}
+{\footnotesize\ttfamily int shark\+Count = 0}
+
+Number of sharks currently ~\newline
+ \Hypertarget{main_8cpp_affc4a37b5496e39ef0b986ac8b18d446}\label{main_8cpp_affc4a37b5496e39ef0b986ac8b18d446} 
+\index{main.cpp@{main.cpp}!Starve@{Starve}}
+\index{Starve@{Starve}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{Starve}{Starve}}
+{\footnotesize\ttfamily int Starve = 100}
+
+The number of moves a shark can make before starving \Hypertarget{main_8cpp_a694be386a582d213180aee827c47cccc}\label{main_8cpp_a694be386a582d213180aee827c47cccc} 
+\index{main.cpp@{main.cpp}!tempOceanGrid@{tempOceanGrid}}
+\index{tempOceanGrid@{tempOceanGrid}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{tempOceanGrid}{tempOceanGrid}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_cell}{Cell}} temp\+Ocean\+Grid\mbox{[}\mbox{\hyperlink{main_8cpp_aea75dd10e09d2d3eb69ed47e48cf81dc}{xdim}}\mbox{]}\mbox{[}\mbox{\hyperlink{main_8cpp_ae4edf59451b5b93478325e260849c564}{ydim}}\mbox{]}}
+
+Temporary ocean grid \Hypertarget{main_8cpp_a3f4a8292db833124f5a1e91360f07f6e}\label{main_8cpp_a3f4a8292db833124f5a1e91360f07f6e} 
+\index{main.cpp@{main.cpp}!WindowXSize@{WindowXSize}}
+\index{WindowXSize@{WindowXSize}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{WindowXSize}{WindowXSize}}
+{\footnotesize\ttfamily int Window\+XSize = 800}
+
+Width of the application window \Hypertarget{main_8cpp_ad905d333f2bccae29a6aacd4135db39f}\label{main_8cpp_ad905d333f2bccae29a6aacd4135db39f} 
+\index{main.cpp@{main.cpp}!WindowYSize@{WindowYSize}}
+\index{WindowYSize@{WindowYSize}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{WindowYSize}{WindowYSize}}
+{\footnotesize\ttfamily int Window\+YSize = 600}
+
+Height of the application window \Hypertarget{main_8cpp_aea75dd10e09d2d3eb69ed47e48cf81dc}\label{main_8cpp_aea75dd10e09d2d3eb69ed47e48cf81dc} 
+\index{main.cpp@{main.cpp}!xdim@{xdim}}
+\index{xdim@{xdim}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{xdim}{xdim}}
+{\footnotesize\ttfamily const int xdim = 100}
+
+x dimension of the ocean grid \Hypertarget{main_8cpp_ae4edf59451b5b93478325e260849c564}\label{main_8cpp_ae4edf59451b5b93478325e260849c564} 
+\index{main.cpp@{main.cpp}!ydim@{ydim}}
+\index{ydim@{ydim}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{ydim}{ydim}}
+{\footnotesize\ttfamily const int ydim = 100}
+
+y dimension of the ocean grid 
