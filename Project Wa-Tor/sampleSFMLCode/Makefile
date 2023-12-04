@@ -1,12 +1,12 @@
-# Joseph Kehoe
-# This is very basic. It is just here to show you a simple sfml graphics display that you can use.
-# I expect better from you!
+#Author: Liam Durkan 
+#Licence: GPL3 
+#Github: https://github.com/liamdkn/ConcurrentDevelopment-/blob/main/labThree
 
 CXX = g++
 CPPFILES = main.cpp
 CPPFLAGS = -Wall
 LDFLAGS = -lsfml-graphics -lsfml-window -lsfml-system #-libomp -fopenmp
-EXE = testApp
+EXE = wator
 
 # SFML configuration
 SFML_INCLUDE = -I/usr/local/Cellar/sfml/2.6.1/include
@@ -22,3 +22,15 @@ OBJS = $(subst .cpp,.o,$(SRCS))
 
 ALL: $(OBJS)
 	$(CXX) $(OBJS) -o $(EXE) $(LDFLAGS) $(SFML_LIB)
+
+# Debug rule containing debug flags 
+DEBUG: DEBUGFLAGS = -DDEBUG
+DEBUG: ALL
+
+# Release rule with optimization flags
+RELEASE: DEBUGFLAGS = -O2
+RELEASE: ALL
+
+# Remove temporary .o files
+CLEAN:
+	rm -f *.o
